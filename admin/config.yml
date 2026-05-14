@@ -101,3 +101,41 @@ collections:
             name: "produit_6"
             widget: "image"
             required: false
+
+      - name: "produits"
+        label: "Produits du catalogue"
+        file: "data/produits.json"
+        format: json
+        fields:
+          - label: "Liste des produits"
+            name: "produits"
+            widget: "list"
+            fields:
+              - label: "Categorie"
+                name: "categorie"
+                widget: "select"
+                options:
+                  - { label: "Huiles moteur", value: "moteur" }
+                  - { label: "Transmission", value: "trans" }
+                  - { label: "Poids lourds & engins", value: "pl" }
+                  - { label: "Moto", value: "moto" }
+                  - { label: "Fluides techniques", value: "fluides" }
+                  - { label: "Additifs", value: "additifs" }
+                  - { label: "Graisses", value: "graisses" }
+                  - { label: "Entretien & filtres", value: "carcare" }
+              - label: "Nom du produit"
+                name: "nom"
+                widget: "string"
+              - label: "Badge (ex: Synthetique, Diesel...)"
+                name: "badge"
+                widget: "string"
+              - label: "Grade / Description"
+                name: "grade"
+                widget: "string"
+              - label: "Normes (separees par des virgules)"
+                name: "normes"
+                widget: "string"
+              - label: "Image du produit"
+                name: "image"
+                widget: "image"
+                required: false
