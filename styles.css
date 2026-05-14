@@ -2399,6 +2399,10 @@ h2 { margin-top: 4px; }
   .hero-meta { margin-top: 28px; gap: 1.2rem; padding-top: 22px; }
   .hero-meta strong { font-size: 1.45rem; }
 
+  /* Badge et stamp — cachés sur mobile (se superposent au contenu du spec-card) */
+  .hero-visual .badge,
+  .hero-visual .stamp { display: none; }
+
   /* Carte spec — supprime le ratio fixe, laisse le contenu dicter la hauteur */
   .hero-visual {
     max-width: 100%;
