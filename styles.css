@@ -1134,6 +1134,10 @@ section.block.alt { background: var(--blanc); }
   background: var(--noir);
   border-radius: 2px 2px 0 0;
 }
+.prod-vis img {
+  position: relative;
+  z-index: 1;
+}
 .prod-vis .label {
   position: absolute;
   bottom: 12px;

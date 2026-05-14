@@ -94,7 +94,7 @@ fetch('/data/produits.json')
           return '<span>' + n.trim() + '</span>';
         }).join('') : '';
         var vis = p.image
-          ? '<img src="' + p.image + '" alt="' + p.nom + '" style="width:100%;height:100%;object-fit:contain;">'
+          ? '<img src="' + p.image + '" alt="' + p.nom + '" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:contain;">'
           : '<span class="label">' + (p.badge || '') + '</span>';
         var nom = p.nom.replace(/'/g, '&#39;');
         return '<article class="prod-card">'
