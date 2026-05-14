@@ -55,3 +55,14 @@
     })
     .catch(function () { /* contenu.json absent ou erreur — page affiche valeurs statiques */ });
 })();
+
+// Redirection vers /admin/ après connexion Netlify Identity
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', function (user) {
+    if (!user) {
+      window.netlifyIdentity.on('login', function () {
+        document.location.href = '/admin/';
+      });
+    }
+  });
+}
