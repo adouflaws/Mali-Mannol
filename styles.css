@@ -2358,11 +2358,29 @@ h2 { margin-top: 4px; }
   .fab-wa { right: 14px; bottom: 14px; width: 54px; height: 54px; }
 }
 
+/* Hero — textes trop grands sur mobile */
+@media (max-width: 640px) {
+  body { overflow-x: hidden; }
+  h1 { font-size: clamp(1.7rem, 7.5vw, 2.4rem); }
+  .hero-copy h1 { font-size: clamp(1.65rem, 7vw, 2.2rem); line-height: 1.12; }
+  .hero-copy p.lede { font-size: .95rem; line-height: 1.55; }
+  .spec-grade { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .spec-name { font-size: 1rem; }
+  .hv-watermark { font-size: clamp(5rem, 18vw, 8rem); }
+  .hero-visual { max-width: 100%; margin: 0 auto; }
+  .spec-card { padding: 24px 20px; }
+  .hero-grid { gap: 1.6rem; }
+  .hero-meta strong { font-size: 1.4rem; }
+  .hero-meta span { font-size: .65rem; }
+}
+
 /* Très petits écrans < 360px */
 @media (max-width: 360px) {
   .brand-text .sub { display: none; }
   .page-header { padding: 40px 0 48px; }
   .mobile-menu .links a { font-size: 1.35rem; }
+  .hero-copy h1 { font-size: 1.5rem; }
+  .spec-grade { font-size: 1.6rem; }
 }
 
 /* ============================ FORM — états d'erreur ============================ */
