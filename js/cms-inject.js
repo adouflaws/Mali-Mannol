@@ -98,7 +98,7 @@ fetch('/data/produits.json')
           : '<span class="label">' + (p.badge || '') + '</span>';
         var nom = p.nom.replace(/'/g, '&#39;');
         return '<article class="prod-card">'
-          + '<div class="prod-vis">' + vis + '</div>'
+          + '<div class="prod-vis' + (p.image ? ' has-image' : '') + '">' + vis + '</div>'
           + '<h3>' + p.nom + '</h3>'
           + '<div class="grade">' + p.grade + '</div>'
           + '<div class="standards">' + normes + '</div>'
