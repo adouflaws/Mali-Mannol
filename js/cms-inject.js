@@ -107,6 +107,28 @@ fetch('/data/produits.json')
   })
   .catch(function () {});
 
+// Services — charge services.json et injecte titres, descriptions, points
+fetch('/data/services.json')
+  .then(function (r) { return r.json(); })
+  .then(function (svcs) {
+    for (var i = 1; i <= 6; i++) {
+      var s = svcs['svc' + i];
+      if (!s) continue;
+      var titre = document.querySelector('[data-cms="svc' + i + '-titre"]');
+      var desc  = document.querySelector('[data-cms="svc' + i + '-desc"]');
+      var ul    = document.querySelector('[data-cms="svc' + i + '-ul"]');
+      if (titre) titre.textContent = s.titre;
+      if (desc)  desc.textContent  = s.description;
+      if (ul && s.points) {
+        ul.innerHTML = s.points.split('\n')
+          .filter(function (p) { return p.trim(); })
+          .map(function (p) { return '<li>' + p.trim() + '</li>'; })
+          .join('');
+      }
+    }
+  })
+  .catch(function () {});
+
 // Redirection vers /admin/ après connexion Netlify Identity
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on('init', function (user) {

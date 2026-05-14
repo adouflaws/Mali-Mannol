@@ -1,0 +1,32 @@
+{
+  "svc1": {
+    "titre": "Vente en gros",
+    "description": "Tarifs grossistes pour garages, stations-service, revendeurs en pièces auto et magasins spécialisés.",
+    "points": "Conditions adaptées au volume\nApprovisionnement régulier programmé\nFacturation et bons de livraison conformes\nRéférencement des clients récurrents"
+  },
+  "svc2": {
+    "titre": "Vente au détail",
+    "description": "Particuliers, propriétaires de véhicules et petits ateliers : achetez à l'unité ou par carton chez nous.",
+    "points": "Bidons 1L, 4L, 5L, 20L et fûts 60L / 208L\nPaiement comptant, mobile money\nConseil sur la bonne référence pour votre véhicule"
+  },
+  "svc3": {
+    "titre": "Conseil technique",
+    "description": "Le bon lubrifiant, c'est celui qui correspond à votre moteur. Nous vous aidons à le choisir.",
+    "points": "Sélection par marque, modèle, année\nLecture des spécifications constructeur\nTropicalisation : choix adapté au climat malien\nFormation produit pour vos mécaniciens"
+  },
+  "svc4": {
+    "titre": "Livraison Bamako et régions",
+    "description": "Stock à Badalabougou, livraisons rapides dans la capitale et planifiées dans les régions.",
+    "points": "Livraison Bamako sous 24-48h\nRégions : Kayes, Sikasso, Ségou, Mopti, Koulikoro\nConditionnement palettisé pour les flottes"
+  },
+  "svc5": {
+    "titre": "Contrat flotte",
+    "description": "Transporteurs, sociétés minières, entreprises agricoles : un contrat d'approvisionnement annuel.",
+    "points": "Volume négocié sur 12 mois\nStock dédié, fiches techniques fournies\nSuivi consommation et plan de vidange"
+  },
+  "svc6": {
+    "titre": "Partenariat atelier",
+    "description": "Devenez atelier partenaire Mali Mannol : visibilité, tarifs préférentiels, support marketing.",
+    "points": "Référencement sur notre réseau\nPLV et signalétique en atelier\nFormation produit gratuite"
+  }
+}
