@@ -56,6 +56,24 @@
     .catch(function () { /* contenu.json absent ou erreur — page affiche valeurs statiques */ });
 })();
 
+// Images — injecte les images depuis data/images.json
+// Pour utiliser : <img data-cms-src="hero" src="" alt="...">
+//                 <div data-cms-bg="about"></div>  (pour background-image)
+fetch('/data/images.json')
+  .then(function (r) { return r.json(); })
+  .then(function (imgs) {
+    Object.keys(imgs).forEach(function (key) {
+      if (!imgs[key]) return;
+      document.querySelectorAll('[data-cms-src="' + key + '"]').forEach(function (el) {
+        el.src = imgs[key];
+      });
+      document.querySelectorAll('[data-cms-bg="' + key + '"]').forEach(function (el) {
+        el.style.backgroundImage = 'url(' + imgs[key] + ')';
+      });
+    });
+  })
+  .catch(function () {});
+
 // Redirection vers /admin/ après connexion Netlify Identity
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on('init', function (user) {

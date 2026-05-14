@@ -45,3 +45,59 @@ collections:
           - label: "Description a propos (footer)"
             name: "apropos_court"
             widget: "string"
+
+      - name: "images"
+        label: "Images du site"
+        file: "data/images.json"
+        format: json
+        fields:
+          - label: "Image Hero (page d'accueil)"
+            name: "hero"
+            widget: "image"
+            required: false
+            hint: "Grande image principale de la page d'accueil"
+          - label: "Photo A propos / Equipe"
+            name: "about"
+            widget: "image"
+            required: false
+            hint: "Photo de l'equipe ou du local"
+          - label: "Image Service 1"
+            name: "service_1"
+            widget: "image"
+            required: false
+          - label: "Image Service 2"
+            name: "service_2"
+            widget: "image"
+            required: false
+          - label: "Image Service 3"
+            name: "service_3"
+            widget: "image"
+            required: false
+          - label: "Image Service 4"
+            name: "service_4"
+            widget: "image"
+            required: false
+          - label: "Image Produit 1"
+            name: "produit_1"
+            widget: "image"
+            required: false
+          - label: "Image Produit 2"
+            name: "produit_2"
+            widget: "image"
+            required: false
+          - label: "Image Produit 3"
+            name: "produit_3"
+            widget: "image"
+            required: false
+          - label: "Image Produit 4"
+            name: "produit_4"
+            widget: "image"
+            required: false
+          - label: "Image Produit 5"
+            name: "produit_5"
+            widget: "image"
+            required: false
+          - label: "Image Produit 6"
+            name: "produit_6"
+            widget: "image"
+            required: false
