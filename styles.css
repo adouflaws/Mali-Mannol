@@ -2427,6 +2427,43 @@ h2 { margin-top: 4px; }
   .block .section-head { margin-bottom: 36px; }
 }
 
+/* ---- Page Produits ---- */
+/* Toolbar filtres : défilement horizontal au lieu d'un retour à la ligne */
+@media (max-width: 640px) {
+  .prod-toolbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+    gap: 8px;
+  }
+  .prod-toolbar::-webkit-scrollbar { display: none; }
+  .prod-toolbar button { flex-shrink: 0; }
+}
+
+/* ---- Page Services ---- */
+@media (max-width: 640px) {
+  .svc-cell { padding: 24px 18px; }
+  .svc-grid { border-radius: var(--r-md); }
+}
+
+/* ---- Page À propos ---- */
+@media (max-width: 480px) {
+  .about-intro .stats { grid-template-columns: 1fr 1fr; }
+  .about-intro .stats > div { padding: 16px; }
+  .about-intro .stats strong { font-size: 1.4rem; }
+  .timeline { padding-left: 20px; }
+  .timeline-item::before { left: -28px; }
+}
+
+/* ---- Page Contact ---- */
+@media (max-width: 480px) {
+  .contact-info .row { grid-template-columns: 32px 1fr; gap: 10px; }
+  .contact-info .quick { flex-direction: column; }
+  .contact-info .quick .btn { width: 100%; justify-content: center; }
+}
+
 /* Très petits écrans < 360px */
 @media (max-width: 360px) {
   .brand-text .sub { display: none; }
