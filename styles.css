@@ -2362,6 +2362,10 @@ h2 { margin-top: 4px; }
 @media (max-width: 640px) {
   body { overflow-x: hidden; }
 
+  /* Container — plus de marge sur les bords du téléphone */
+  .container { padding-inline: 24px; }
+  .mobile-menu { padding: 24px; }
+
   /* Tailles de texte — ni trop grandes ni trop petites */
   h1 { font-size: clamp(1.95rem, 7.5vw, 2.4rem); }
   .hero-copy h1 { font-size: clamp(1.85rem, 7vw, 2.2rem); line-height: 1.15; margin-bottom: 16px; }
