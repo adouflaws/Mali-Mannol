@@ -66,9 +66,12 @@ fetch('/data/images.json')
       if (!imgs[key]) return;
       document.querySelectorAll('[data-cms-src="' + key + '"]').forEach(function (el) {
         el.src = imgs[key];
+        el.style.display = '';
       });
       document.querySelectorAll('[data-cms-bg="' + key + '"]').forEach(function (el) {
         el.style.backgroundImage = 'url(' + imgs[key] + ')';
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
       });
     });
   })

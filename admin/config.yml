@@ -77,6 +77,14 @@ collections:
             name: "service_4"
             widget: "image"
             required: false
+          - label: "Image Service 5"
+            name: "service_5"
+            widget: "image"
+            required: false
+          - label: "Image Service 6"
+            name: "service_6"
+            widget: "image"
+            required: false
           - label: "Image Produit 1"
             name: "produit_1"
             widget: "image"
