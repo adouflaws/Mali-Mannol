@@ -420,22 +420,147 @@
 
 <a class="fab-wa" href="https://wa.me/22366739612" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1 2.9 1.2 3.1c.2.2 2.1 3.2 5 4.5 2.9 1.3 2.9.9 3.4.8.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.2-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.3c1.4.7 3 1.1 4.7 1.1 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></a>
 
+<!-- ===== PANIER WHATSAPP ===== -->
+<style>
+.btn-cart-add{display:block;width:100%;margin-top:10px;padding:9px 0;background:transparent;border:1.5px solid var(--rouge);color:var(--rouge);font-family:var(--ff-mono);font-size:.75rem;font-weight:600;letter-spacing:.08em;border-radius:6px;cursor:pointer;transition:background .18s,color .18s;}
+.btn-cart-add:hover{background:var(--rouge);color:#fff;}
+.cart-fab{position:fixed;bottom:90px;right:24px;width:52px;height:52px;background:var(--rouge);color:#fff;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.28);z-index:900;transition:transform .18s;}
+.cart-fab:hover{transform:scale(1.08);}
+.cart-badge{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;background:#111;color:#fff;font-size:.65rem;font-weight:700;border-radius:10px;display:none;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff;}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-drawer{position:fixed;top:0;right:0;width:min(390px,100vw);height:100dvh;background:#fff;z-index:1001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 32px rgba(0,0,0,.18);}
+.cart-drawer.open{transform:translateX(0);}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #eee;background:#111;color:#fff;flex-shrink:0;}
+.cart-head h3{margin:0;font-size:1rem;letter-spacing:.04em;font-family:var(--ff-head,Montserrat,sans-serif);}
+.cart-head .cart-close-btn{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;padding:0 2px;}
+.cart-body{flex:1;overflow-y:auto;padding:16px 20px;}
+.cart-empty{color:#999;font-size:.88rem;text-align:center;margin-top:48px;}
+.cart-item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #f0f0f0;}
+.cart-item-name{flex:1;font-size:.84rem;font-weight:600;color:#222;line-height:1.35;}
+.cart-item-ctrl{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+.cart-item-ctrl button{width:28px;height:28px;border:1.5px solid #ddd;background:#fff;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;}
+.cart-item-ctrl button:hover{border-color:var(--rouge);background:#fff5f5;}
+.cart-item-ctrl span{min-width:22px;text-align:center;font-weight:700;font-size:.9rem;}
+.ci-rm{color:#bbb !important;border-color:transparent !important;font-size:.8rem !important;}
+.ci-rm:hover{color:var(--rouge) !important;background:#fff5f5 !important;}
+.cart-foot{padding:16px 20px;border-top:1px solid #eee;background:#fafafa;flex-shrink:0;}
+.cart-note{font-size:.75rem;color:#888;margin:0 0 10px;text-align:center;}
+.btn-wa-order{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:#25D366;color:#fff;font-weight:700;font-size:.9rem;border-radius:8px;text-decoration:none;transition:background .18s;box-sizing:border-box;}
+.btn-wa-order:hover{background:#1ebe5a;color:#fff;}
+.btn-wa-order svg{width:20px;height:20px;flex-shrink:0;}
+</style>
+
+<button class="cart-fab" id="cartFab" aria-label="Voir le panier">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  <span class="cart-badge" id="cartBadge">0</span>
+</button>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h3>Mon panier</h3>
+    <button class="cart-close-btn" id="cartClose" aria-label="Fermer">&#10005;</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <p class="cart-empty">Votre panier est vide.<br/>Ajoutez des produits depuis le catalogue.</p>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <p class="cart-note">Les prix seront confirmés par Mali Mannol.</p>
+    <a class="btn-wa-order" id="cartWa" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1 2.9 1.2 3.1c.2.2 2.1 3.2 5 4.5 2.9 1.3 2.9.9 3.4.8.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.2-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.3c1.4.7 3 1.1 4.7 1.1 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+      Envoyer la commande par WhatsApp
+    </a>
+  </div>
+</div>
+
 <script>
   (function() {
-    const buttons = document.querySelectorAll('#filters button');
-    const cats = document.querySelectorAll('.prod-cat');
-    buttons.forEach(b => b.addEventListener('click', () => {
-      buttons.forEach(x => x.classList.remove('is-active'));
-      b.classList.add('is-active');
-      const f = b.dataset.f;
-      cats.forEach(c => {
-        c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
-      });
-      if (f !== 'all') {
-        const target = document.querySelector('.prod-cat[data-cat="'+f+'"]');
-        if (target) window.scrollTo({ top: target.offsetTop - 130, behavior: 'smooth' });
+    var WA = '22366739612';
+    var KEY = 'mannol_cart';
+
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e) { return []; } }
+    function save(c) { localStorage.setItem(KEY, JSON.stringify(c)); }
+
+    function addToCart(name) {
+      var c = load();
+      var ex = c.find(function(i){ return i.n === name; });
+      if (ex) { ex.q++; } else { c.push({n: name, q: 1}); }
+      save(c); refresh(); openCart();
+    }
+
+    function refresh() {
+      var c = load();
+      var total = c.reduce(function(s,i){ return s + i.q; }, 0);
+      var badge = document.getElementById('cartBadge');
+      badge.textContent = total;
+      badge.style.display = total > 0 ? 'flex' : 'none';
+
+      var body = document.getElementById('cartBody');
+      var foot = document.getElementById('cartFoot');
+      if (c.length === 0) {
+        body.innerHTML = '<p class="cart-empty">Votre panier est vide.<br/>Ajoutez des produits depuis le catalogue.</p>';
+        foot.style.display = 'none';
+        return;
       }
-    }));
+      body.innerHTML = c.map(function(item, idx) {
+        return '<div class="cart-item">'
+          + '<div class="cart-item-name">' + item.n + '</div>'
+          + '<div class="cart-item-ctrl">'
+          + '<button onclick="__C.dec(' + idx + ')">&#8722;</button>'
+          + '<span>' + item.q + '</span>'
+          + '<button onclick="__C.inc(' + idx + ')">+</button>'
+          + '<button class="ci-rm" onclick="__C.rm(' + idx + ')" title="Retirer">&#10005;</button>'
+          + '</div></div>';
+      }).join('');
+      foot.style.display = 'block';
+      var msg = 'Bonjour Mali Mannol,\n\nJe souhaite commander les produits suivants :\n\n'
+        + c.map(function(i){ return '- ' + i.n + ' (qte : ' + i.q + ')'; }).join('\n')
+        + '\n\nMerci de me confirmer les prix et la disponibilite.';
+      document.getElementById('cartWa').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+    }
+
+    function openCart()  { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); }
+    function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); }
+
+    window.__C = {
+      inc: function(i) { var c=load(); c[i].q++; save(c); refresh(); },
+      dec: function(i) { var c=load(); if(c[i].q>1){c[i].q--;}else{c.splice(i,1);} save(c); refresh(); },
+      rm:  function(i) { var c=load(); c.splice(i,1); save(c); refresh(); }
+    };
+
+    // Filtres
+    var buttons = document.querySelectorAll('#filters button');
+    var cats = document.querySelectorAll('.prod-cat');
+    buttons.forEach(function(b) {
+      b.addEventListener('click', function() {
+        buttons.forEach(function(x){ x.classList.remove('is-active'); });
+        b.classList.add('is-active');
+        var f = b.dataset.f;
+        cats.forEach(function(c){ c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none'; });
+        if (f !== 'all') {
+          var target = document.querySelector('.prod-cat[data-cat="'+f+'"]');
+          if (target) window.scrollTo({ top: target.offsetTop - 130, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Boutons panier sur chaque carte produit
+    document.querySelectorAll('.prod-card').forEach(function(card) {
+      var h3 = card.querySelector('h3');
+      if (!h3) return;
+      var btn = document.createElement('button');
+      btn.className = 'btn-cart-add';
+      btn.textContent = '+ Ajouter au panier';
+      btn.onclick = function() { addToCart(h3.textContent.trim()); };
+      card.appendChild(btn);
+    });
+
+    refresh();
+    document.getElementById('cartFab').addEventListener('click', openCart);
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    document.getElementById('cartOverlay').addEventListener('click', closeCart);
   })();
 </script>
 
