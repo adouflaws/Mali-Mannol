@@ -2263,6 +2263,108 @@ h2 { margin-top: 4px; }
   line-height: 1;
 }
 
+/* ============================================================
+   RESPONSIVE MOBILE — correctifs
+   ============================================================ */
+
+/* Navigation : le .btn-finder n'est pas un .btn, il faut le cacher explicitement */
+@media (max-width: 920px) {
+  .nav-cta .btn-finder { display: none; }
+  .nav-wrap { padding: 12px 0; }
+}
+
+/* Page header — padding trop grand sur mobile */
+@media (max-width: 640px) {
+  .page-header { padding: 52px 0 60px; }
+  .page-header h1 { max-width: 100%; }
+  .page-header p { font-size: 1rem; }
+}
+
+/* Hero — petits écrans */
+@media (max-width: 560px) {
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-visual { max-width: 100%; }
+  .hero-meta { gap: 1rem; padding-top: 18px; margin-top: 24px; }
+}
+
+/* Finder banner — très petits écrans */
+@media (max-width: 480px) {
+  .finder-banner { padding: 22px 18px; gap: 16px; }
+  .finder-banner h3 { font-size: 1.05rem; }
+  .finder-banner p { font-size: .88rem; }
+}
+
+/* Stats bar — petits écrans */
+@media (max-width: 400px) {
+  .stats-bar-grid > div { padding: 16px 12px; }
+  .stats-bar-grid strong { font-size: 1.5rem; }
+}
+
+/* CTA band — empilement vertical sur mobile */
+@media (max-width: 560px) {
+  .cta-band { padding: 48px 0; }
+  .cta-band .row { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .cta-band .actions { width: 100%; flex-wrap: wrap; }
+  .cta-band .actions .btn { flex: 1 1 120px; justify-content: center; text-align: center; }
+}
+
+/* Contact — padding réduit sur mobile */
+@media (max-width: 640px) {
+  .contact-info { padding: 24px 20px; }
+  .form-card { padding: 24px 20px; }
+  .map-wrap { margin-top: 32px; aspect-ratio: 4 / 3; }
+}
+
+/* Footer bottom — empilement vertical sur très petit écran */
+@media (max-width: 480px) {
+  .footer-bottom { flex-direction: column; text-align: center; gap: .4rem; }
+}
+
+/* About page — gamby card mobile */
+@media (max-width: 480px) {
+  .gamby-card { padding: 24px 20px; gap: 18px; }
+}
+
+/* Toolbar produits — décalage sticky corrigé (header plus petit sur mobile) */
+@media (max-width: 920px) {
+  .prod-toolbar { top: 62px; padding: 12px 0; }
+}
+
+/* Répertoire catalogue — padding mobile */
+@media (max-width: 480px) {
+  .dir-head { padding: 20px 18px; }
+  .dir-row { padding: 13px 14px; gap: 10px; }
+  .dir-row .tag { font-size: .56rem; padding: 5px 3px; }
+  .dir-row .body strong { font-size: .88rem; }
+  .dir-row .body span { font-size: .66rem; }
+}
+
+/* Section head — espacement mobile */
+@media (max-width: 560px) {
+  .block .section-head { gap: 1rem; margin-bottom: 36px; }
+}
+
+/* Why-mannol cards — padding mobile */
+@media (max-width: 480px) {
+  .why-mannol-card { padding: 24px 18px; }
+  .why-mannol-header { margin-bottom: 40px; }
+}
+
+/* Panier FAB — position sur mobile */
+@media (max-width: 480px) {
+  .cart-fab { bottom: 82px; right: 14px; width: 48px; height: 48px; }
+  .cart-fab svg { width: 20px; height: 20px; }
+  .fab-wa { right: 14px; bottom: 14px; width: 54px; height: 54px; }
+}
+
+/* Très petits écrans < 360px */
+@media (max-width: 360px) {
+  .brand-text .sub { display: none; }
+  .page-header { padding: 40px 0 48px; }
+  .mobile-menu .links a { font-size: 1.35rem; }
+}
+
 /* ============================ FORM — états d'erreur ============================ */
 .field input:user-invalid,
 .field select:user-invalid,
