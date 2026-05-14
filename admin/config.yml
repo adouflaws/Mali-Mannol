@@ -1,0 +1,47 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+locale: fr
+
+collections:
+  - name: "site"
+    label: "Contenu du site"
+    files:
+
+      - name: "coordonnees"
+        label: "Coordonnees et contact"
+        file: "data/contenu.json"
+        format: json
+        fields:
+          - label: "Telephone"
+            name: "phone"
+            widget: "string"
+            hint: "Ex : +223 66 73 96 12"
+          - label: "Numero WhatsApp"
+            name: "whatsapp"
+            widget: "string"
+            hint: "Sans le +, ex : 22366739612"
+          - label: "Email"
+            name: "email"
+            widget: "string"
+          - label: "Adresse"
+            name: "adresse"
+            widget: "string"
+            hint: "Ex : Badalabougou, Bamako"
+          - label: "Horaires"
+            name: "horaires"
+            widget: "string"
+            hint: "Ex : Lundi - Samedi, 8h - 18h"
+          - label: "Titre page accueil"
+            name: "hero_titre"
+            widget: "string"
+          - label: "Description page accueil"
+            name: "hero_description"
+            widget: "text"
+          - label: "Description a propos (footer)"
+            name: "apropos_court"
+            widget: "string"
