@@ -87,6 +87,20 @@ p { text-wrap: pretty; }
   background: var(--bleu);
 }
 
+/* Eyebrow sur fond sombre — plus lisible */
+.dark .eyebrow,
+.hero .eyebrow,
+.cta-band .eyebrow,
+.gamby-card .eyebrow {
+  color: var(--or);
+  opacity: 0.85;
+}
+/* Eyebrow sur fond clair — bleu standard */
+.block .eyebrow,
+.block.tinted .eyebrow {
+  color: var(--bleu);
+}
+
 .container {
   width: 100%;
   max-width: var(--maxw);
@@ -234,6 +248,10 @@ p { text-wrap: pretty; }
   border: 1px solid rgba(255,255,255,.25);
 }
 .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.5); }
+.btn-ghost:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.8);
+  outline-offset: 3px;
+}
 .btn-outline {
   background: transparent;
   color: var(--noir);
@@ -1143,7 +1161,7 @@ section.block.alt { background: var(--blanc); }
   z-index: 2;
 }
 .prod-vis.has-image {
-  background: #fff;
+  background: var(--blanc);
 }
 .prod-vis.has-image::before,
 .prod-vis.has-image::after {
@@ -1998,7 +2016,7 @@ section.block.alt { background: var(--blanc); }
 .btn.btn-primary:focus-visible,
 .btn-whatsapp:focus-visible,
 .btn-finder:focus-visible {
-  outline-color: #fff;
+  outline-color: var(--blanc);
   outline-offset: 3px;
 }
 .cat-card:focus-visible {
@@ -2089,7 +2107,7 @@ h2 { margin-top: 4px; }
 /* 5. CATEGORIES */
 .cat-grid { gap: 20px; }
 .cat-card { padding: 24px 22px; gap: 16px; }
-.cat-card .cat-vis { aspect-ratio: 4 / 3; background: #fff; border: 1px solid #C0D8EE; border-radius: 8px; font-size: .65rem; letter-spacing: .12em; color: #7A95B0; position: relative; overflow: hidden; padding: 0; }
+.cat-card .cat-vis { aspect-ratio: 4 / 3; background: var(--blanc); border: 1px solid #C0D8EE; border-radius: 8px; font-size: .65rem; letter-spacing: .12em; color: #7A95B0; position: relative; overflow: hidden; padding: 0; }
 .cat-card .cat-vis img { position: absolute; inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px); object-fit: contain; }
 .cat-card h3 { font-size: 1.15rem; margin: 0; }
 .cat-card p { font-size: .9rem; color: var(--gris-700); max-width: none; }
@@ -2558,3 +2576,14 @@ h2 { margin-top: 4px; }
   margin-bottom: 16px;
 }
 .form-success.visible { display: block; }
+
+/* ============================ ACCESSIBILITÉ — prefers-reduced-motion ============================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fab-wa { animation: none !important; }
+  .hero-copy h1, .hero-copy p { opacity: 1; transform: none; }
+}
