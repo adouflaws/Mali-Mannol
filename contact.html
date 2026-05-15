@@ -80,7 +80,7 @@
 
         <div class="row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <div><span class="lbl">Horaires</span><strong>Lun–Ven · 8h–18h<br/>Sam · 8h–14h</strong></div>
+          <div><span class="lbl">Horaires</span><strong>Lun · Mer · Jeu · Sam : 8h30–19h00<br/>Ven : 8h00–19h00<br/>Mar : 8h30–19h45<br/>Dim : Fermé</strong></div>
         </div>
 
         <div class="quick">
@@ -251,15 +251,21 @@
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-          "opens": "08:00",
-          "closes": "18:00"
+          "dayOfWeek": ["Monday","Wednesday","Thursday","Saturday"],
+          "opens": "08:30",
+          "closes": "19:00"
         },
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": "Saturday",
+          "dayOfWeek": "Tuesday",
+          "opens": "08:30",
+          "closes": "19:45"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
           "opens": "08:00",
-          "closes": "14:00"
+          "closes": "19:00"
         }
       ]
     }
