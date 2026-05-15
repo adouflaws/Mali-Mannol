@@ -166,7 +166,7 @@ p { text-wrap: pretty; }
   font-size: 1.05rem;
   letter-spacing: .02em;
 }
-.brand-text .lockup span { color: var(--bleu); }
+.brand-text .lockup span { color: var(--or); }
 .brand-text .sub {
   margin-top: 4px;
   font-family: var(--ff-mono);
