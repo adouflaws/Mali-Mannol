@@ -2582,6 +2582,12 @@ h2 { margin-top: 4px; }
   .about-stats-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
 }
 
+/* FAQ — accordion details/summary */
+details summary::-webkit-details-marker { display: none; }
+details[open] summary span:last-child { transform: rotate(45deg); display: inline-block; }
+details[open] { border-color: var(--bleu) !important; }
+details[open] summary { background: var(--gris-50) !important; color: var(--bleu); }
+
 /* ============================ ACCESSIBILITÉ — prefers-reduced-motion ============================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
