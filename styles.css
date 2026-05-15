@@ -924,7 +924,7 @@ section.block.alt { background: var(--blanc); }
   font-weight: 700;
 }
 .testi .who strong { display: block; font-size: .95rem; font-family: var(--ff-display); }
-.testi .who span { font-size: .8rem; color: var(--gris-500); font-family: var(--ff-mono); letter-spacing: .04em; }
+.testi .who span { font-size: .8rem; color: var(--gris-300); font-family: var(--ff-mono); letter-spacing: .04em; }
 
 /* ============================ CTA BAND ============================ */
 .cta-band {
@@ -1465,6 +1465,15 @@ section.block.alt { background: var(--blanc); }
   background: var(--bleu);
 }
 
+/* Images de service — extrait des inline styles */
+.svc-cell .svc-photo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: none;
+}
+
 /* ============================ CONTACT ============================ */
 .contact-grid {
   display: grid;
@@ -1978,6 +1987,35 @@ section.block.alt { background: var(--blanc); }
   outline: 2px solid var(--or);
   outline-offset: 3px;
   border-radius: 3px;
+}
+
+/* Focus états pour composants interactifs */
+.btn:focus-visible {
+  outline: 3px solid var(--or);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px oklch(82% 0.18 85 / 0.25);
+}
+.btn.btn-primary:focus-visible,
+.btn-whatsapp:focus-visible,
+.btn-finder:focus-visible {
+  outline-color: #fff;
+  outline-offset: 3px;
+}
+.cat-card:focus-visible {
+  outline: 3px solid var(--bleu);
+  outline-offset: 2px;
+  box-shadow: var(--sh-blue);
+}
+.primary-nav a:focus-visible,
+.footer-grid a:focus-visible {
+  outline: 2px solid var(--or);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.prod-card .ask:focus-visible,
+.prod-card .btn-cart-add:focus-visible {
+  outline: 2px solid var(--bleu);
+  outline-offset: 2px;
 }
 
 /* 15. FINDER BANNER — léger bord bleu lumineux */
