@@ -2577,6 +2577,11 @@ h2 { margin-top: 4px; }
 }
 .form-success.visible { display: block; }
 
+/* À propos — section stats/certifications responsive */
+@media (max-width: 760px) {
+  .about-stats-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+}
+
 /* ============================ ACCESSIBILITÉ — prefers-reduced-motion ============================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
