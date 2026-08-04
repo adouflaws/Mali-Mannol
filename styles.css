@@ -113,9 +113,18 @@ p { text-wrap: pretty; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--noir);
+  background: linear-gradient(180deg, rgba(8,21,43,.55) 0%, rgba(8,21,43,0) 100%);
   color: var(--blanc);
-  border-bottom: 1px solid #112244;
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+}
+.site-header.is-scrolled {
+  background: rgba(8,21,43,.92);
+  border-bottom-color: #112244;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .site-header .topbar {
   background: #040D1C;
@@ -391,6 +400,7 @@ p { text-wrap: pretty; }
   color: var(--blanc);
   overflow: hidden;
   isolation: isolate;
+  margin-top: calc(-1 * var(--header-h, 84px));
 }
 .hero-bg {
   position: absolute;
@@ -703,6 +713,7 @@ p { text-wrap: pretty; }
   padding: 80px 0 100px;
   position: relative;
   overflow: hidden;
+  margin-top: calc(-1 * var(--header-h, 84px));
 }
 .page-header::before {
   content: "";
@@ -2109,7 +2120,7 @@ section.block p, section.block li { line-height: 1.6; }
 h2 { margin-top: 4px; }
 
 /* 3. HERO */
-.hero-grid { padding-top: clamp(48px, 7vw, 84px); padding-bottom: clamp(40px, 5vw, 64px); gap: 3rem; }
+.hero-grid { padding-top: calc(clamp(48px, 7vw, 84px) + var(--header-h, 84px)); padding-bottom: clamp(40px, 5vw, 64px); gap: 3rem; }
 .hero-copy h1 { font-size: clamp(1.9rem, 3.6vw, 3rem); }
 .hv-card { overflow: hidden; padding: 32px 28px; }
 .hv-eyebrow { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
@@ -2164,7 +2175,7 @@ h2 { margin-top: 4px; }
 .footer-bottom { padding-top: 28px; font-size: .78rem; letter-spacing: .05em; }
 
 /* 10. PAGE HEADERS */
-.page-header { padding: 96px 0 116px; }
+.page-header { padding: calc(96px + var(--header-h, 84px)) 0 116px; }
 .page-header h1 { max-width: 18ch; line-height: 1.03; margin-top: 14px; margin-bottom: 20px; }
 .page-header p { font-size: 1.1rem; max-width: 58ch; }
 .breadcrumb { font-size: .76rem; letter-spacing: .1em; }
