@@ -3,12 +3,14 @@
     .then(function (r) { return r.json(); })
     .then(function (d) {
 
-      // Telephone — tous les liens tel:
-      document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
+      // Telephone — tous les liens tel: (sauf le bouton flottant, qui garde son emoji)
+      document.querySelectorAll('a[href^="tel:"]:not(.fab-tel)').forEach(function (el) {
         var clean = d.phone.replace(/\s/g, '');
         el.href = 'tel:' + clean;
         el.textContent = d.phone;
       });
+      var telFab = document.querySelector('a.fab-tel[href^="tel:"]');
+      if (telFab) telFab.href = 'tel:' + d.phone.replace(/\s/g, '');
 
       // WhatsApp — tous les liens wa.me (preserve le ?text= du panier)
       document.querySelectorAll('a[href*="wa.me/"]').forEach(function (el) {
