@@ -494,7 +494,6 @@ p { text-wrap: pretty; }
   border-radius: var(--r-lg);
   overflow: hidden;
   background: #071120;
-  border: 1px solid rgba(255,255,255,.08);
   display: grid;
   place-items: center;
 }
@@ -2079,6 +2078,12 @@ section.block.alt { background: var(--blanc); }
 
 /* 18. SCROLL MARGIN pour navigation sticky */
 [id] { scroll-margin-top: 90px; }
+
+/* 13. SCROLLBAR customisée */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--noir); }
+::-webkit-scrollbar-thumb { background: var(--bleu); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--bleu-clair); }
 
 /* ============================================================
    IMPECCABLE — Design brand premium
