@@ -77,38 +77,8 @@ fetch('/data/images.json')
   })
   .catch(function () {});
 
-// Produits — charge produits.json et injecte les cartes dans chaque .prod-grid
-fetch('/data/produits.json')
-  .then(function (r) { return r.json(); })
-  .then(function (data) {
-    var bycat = {};
-    data.produits.forEach(function (p) {
-      if (!bycat[p.categorie]) bycat[p.categorie] = [];
-      bycat[p.categorie].push(p);
-    });
-    Object.keys(bycat).forEach(function (cat) {
-      var grid = document.querySelector('[data-cat="' + cat + '"] .prod-grid');
-      if (!grid) return;
-      grid.innerHTML = bycat[cat].map(function (p) {
-        var normes = p.normes ? p.normes.split(',').map(function (n) {
-          return '<span>' + n.trim() + '</span>';
-        }).join('') : '';
-        var vis = p.image
-          ? '<img src="' + p.image + '" alt="' + p.nom + '" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:contain;">'
-          : '<span class="label">' + (p.badge || '') + '</span>';
-        var nom = p.nom.replace(/'/g, '&#39;');
-        return '<article class="prod-card">'
-          + '<div class="prod-vis' + (p.image ? ' has-image' : '') + '">' + vis + '</div>'
-          + '<h3>' + p.nom + '</h3>'
-          + '<div class="grade">' + p.grade + '</div>'
-          + '<div class="standards">' + normes + '</div>'
-          + '<a class="ask" href="contact.html">Demander le prix</a>'
-          + '<button class="btn-cart-add" onclick="if(window.__addToCart)window.__addToCart(\'' + nom + '\')">+ Ajouter au panier</button>'
-          + '</article>';
-      }).join('');
-    });
-  })
-  .catch(function () {});
+// Produits — les fiches sont generees statiquement dans produits.html depuis data/produits.json
+// (voir scripts/build-produits.js). Relancer ce script apres toute modification du JSON.
 
 // Services — charge services.json et injecte titres, descriptions, points
 fetch('/data/services.json')
@@ -131,14 +101,3 @@ fetch('/data/services.json')
     }
   })
   .catch(function () {});
-
-// Redirection vers /admin/ après connexion Netlify Identity
-if (window.netlifyIdentity) {
-  window.netlifyIdentity.on('init', function (user) {
-    if (!user) {
-      window.netlifyIdentity.on('login', function () {
-        document.location.href = '/admin/';
-      });
-    }
-  });
-}

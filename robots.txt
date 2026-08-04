@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mali-mannol.netlify.app/sitemap.xml
+Sitemap: https://mali-mannol.vercel.app/sitemap.xml
