@@ -184,12 +184,25 @@ p { text-wrap: pretty; }
   line-height: 1;
 }
 .brand-text .lockup {
+  display: flex;
+  flex-direction: column;
   font-family: var(--ff-display);
+}
+.brand-text .lockup-main {
   font-weight: 800;
   font-size: 1.05rem;
   letter-spacing: .02em;
+  color: var(--or);
 }
-.brand-text .lockup span { color: var(--or); }
+.brand-text .lockup-sub {
+  align-self: flex-end;
+  margin-top: 2px;
+  font-weight: 700;
+  font-size: .58rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blanc);
+}
 .brand-text .sub {
   margin-top: 4px;
   font-family: var(--ff-mono);
@@ -1027,7 +1040,7 @@ section.block.alt { background: var(--blanc); }
 .footer-grid a:hover { color: var(--blanc); }
 .footer-grid p { margin: 0 0 12px; line-height: 1.6; }
 .footer-grid .brand { color: var(--blanc); margin-bottom: 16px; }
-.footer-grid .brand-text .lockup { color: var(--blanc); }
+.footer-grid .brand-text .lockup-main { color: var(--blanc); }
 .social {
   display: flex;
   gap: 8px;
@@ -1881,7 +1894,7 @@ section.block.alt { background: var(--blanc); }
   border-radius: 2px;
   bottom: -20px;
 }
-.brand-text .lockup { font-size: 1.1rem; letter-spacing: .04em; }
+.brand-text .lockup-main { font-size: 1.1rem; letter-spacing: .04em; }
 .brand-text .sub { letter-spacing: .16em; font-size: .6rem; margin-top: 5px; }
 
 /* 2. BOUTONS — transitions plus élégantes */
