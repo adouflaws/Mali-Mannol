@@ -2013,11 +2013,6 @@ section.block.alt { background: var(--blanc); }
 .breadcrumb { margin-bottom: 28px; }
 .breadcrumb span { color: var(--or); }
 
-/* 13. SCROLLBAR customisée */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--noir); }
-::-webkit-scrollbar-thumb { background: var(--bleu); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--bleu-clair); }
 
 /* 14. FOCUS VISIBLE accessible */
 :focus-visible {
