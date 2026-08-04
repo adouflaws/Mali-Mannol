@@ -28,7 +28,7 @@ function cardHtml(p) {
     + '<h3>' + p.nom + '</h3>'
     + '<div class="grade">' + p.grade + '</div>'
     + '<div class="standards">' + normes + '</div>'
-    + '<a class="ask" href="contact.html">Demander le prix</a>'
+    + '<a class="ask" href="contact.html?produit=' + encodeURIComponent(p.nom) + '">Demander le prix</a>'
     + '<button class="btn-cart-add" onclick="if(window.__addToCart)window.__addToCart(\'' + nom + '\')">+ Ajouter au panier</button>'
     + '</article>';
 }
