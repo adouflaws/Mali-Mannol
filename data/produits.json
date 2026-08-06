@@ -8,6 +8,9 @@
     { "categorie": "moteur", "badge": "Diesel", "nom": "TS-7 UHPD Blue 10W-40", "grade": "SAE 10W-40 · diesel moderne", "normes": "API CK-4, ACEA E9", "image": "/images/produits/ts7-uhpd-10w40.webp" },
     { "categorie": "moteur", "badge": "Diesel", "nom": "Defender 10W-40", "grade": "SAE 10W-40 · forte sollicitation", "normes": "API SL/CF, MB 229.1", "image": "/images/produits/defender-10w40.webp" },
     { "categorie": "moteur", "badge": "Hybrid", "nom": "Hybrid 0W-20", "grade": "SAE 0W-20 · véhicules hybrides", "normes": "API SP, ILSAC GF-6", "image": "/images/produits/hybrid-0w20.webp" },
+    { "categorie": "moteur", "badge": "Synthétique", "nom": "Extreme 5W-40", "grade": "SAE 5W-40 · 100 % synthétique ester", "normes": "API SN/CH-4, ACEA A3/B4, MB 229.5", "image": "/images/produits/extreme-5w40.webp" },
+    { "categorie": "moteur", "badge": "Synthétique", "nom": "Elite 5W-40", "grade": "SAE 5W-40 · synthétique premium", "normes": "API SN/CH-4, ACEA A3/B4, VW 502.00/505.00", "image": "/images/produits/elite-5w40.webp" },
+    { "categorie": "moteur", "badge": "Longlife", "nom": "Longlife 504/507 5W-30", "grade": "SAE 5W-30 · vidange longue durée", "normes": "ACEA C3, VW 504.00/507.00, MB 229.51", "image": "/images/produits/longlife-504-507-5w30.webp" },
 
     { "categorie": "trans", "badge": "ATF", "nom": "ATF Multivehicle", "grade": "Boîtes auto multi-marques", "normes": "Dexron VI, MB 236.14", "image": "/images/produits/atf-multivehicle.webp" },
     { "categorie": "trans", "badge": "CVT", "nom": "CVT Variator", "grade": "Boîtes à variation continue", "normes": "NS-2, JWS", "image": "/images/produits/cvt.webp" },
@@ -15,6 +18,7 @@
     { "categorie": "trans", "badge": "Manuelle", "nom": "Maxpower 4×4 75W-140", "grade": "Pont arrière, transferts", "normes": "API GL-5, LS", "image": "/images/produits/maxpower-75w140.webp" },
     { "categorie": "trans", "badge": "Manuelle", "nom": "Universal 80W-90", "grade": "Boîtes manuelles & ponts", "normes": "API GL-4/GL-5", "image": "/images/produits/universal-80w90.webp" },
     { "categorie": "trans", "badge": "PSF", "nom": "PSF Power Steering", "grade": "Direction assistée", "normes": "Dexron III", "image": "/images/produits/psf.webp" },
+    { "categorie": "trans", "badge": "ATF", "nom": "ATF AG55", "grade": "Boîtes auto ZF 6HPxx", "normes": "VW G 055 005, Dexron II/III/VI, MB 236", "image": "/images/produits/atf-ag55.webp" },
 
     { "categorie": "pl", "badge": "UHPD", "nom": "TS-22 UHPD 5W-30", "grade": "Camions Euro V/VI", "normes": "API CK-4, MB 228.51, MAN M3677", "image": "/images/produits/ts22-uhpd-5w30.webp" },
     { "categorie": "pl", "badge": "Diesel", "nom": "TS-5 UHPD 10W-40", "grade": "Long drain · flottes", "normes": "API CI-4, ACEA E7", "image": "/images/produits/ts5-uhpd-10w40.webp" },
@@ -40,6 +44,7 @@
     { "categorie": "additifs", "badge": "DPF", "nom": "DPF Liquid", "grade": "Régénération filtre à particules", "normes": "250 ml", "image": "/images/produits/dpf-liquid.webp" },
     { "categorie": "additifs", "badge": "Stop fuite", "nom": "Oil Leak Stop", "grade": "Anti-fuite huile moteur", "normes": "250 ml", "image": "/images/produits/oil-leak-stop.webp" },
     { "categorie": "additifs", "badge": "Anti-fumée", "nom": "Diesel Anti-Smoke", "grade": "Réduction des fumées noires", "normes": "325 ml", "image": "/images/produits/diesel-cleaner.webp" },
+    { "categorie": "additifs", "badge": "Rinçage", "nom": "Motor Flush", "grade": "Nettoyant circuit huile avant vidange", "normes": "350 ml · 10 min", "image": "/images/produits/motor-flush.webp" },
 
     { "categorie": "graisses", "badge": "Li", "nom": "LC-2 Lithium-Calcium", "grade": "Multi-usage · NLGI 2", "normes": "−30 → 130 °C", "image": "/images/produits/lc2-grease.webp" },
     { "categorie": "graisses", "badge": "EP", "nom": "EP-2 Multi-MoS₂", "grade": "Charges lourdes · disulfure", "normes": "NLGI 2, EP", "image": "/images/produits/ep2-mos2.webp" },
@@ -47,7 +52,9 @@
 
     { "categorie": "carcare", "badge": "Car care", "nom": "Brake Cleaner", "grade": "Nettoyant freins & pièces", "normes": "500 ml", "image": "/images/produits/brake-cleaner.webp" },
     { "categorie": "carcare", "badge": "Car care", "nom": "Engine Cleaner", "grade": "Dégraissant moteur", "normes": "1 L", "image": "/images/produits/engine-cleaner.webp" },
-    { "categorie": "carcare", "badge": "Filtre", "nom": "Filtre à huile · à carburant", "grade": "Toutes marques sur demande", "normes": "OEM", "image": "" },
-    { "categorie": "carcare", "badge": "Accessoire", "nom": "Pompe à vidange manuelle", "grade": "Aspiration moteur", "normes": "6 L", "image": "" }
+    { "categorie": "carcare", "badge": "Car care", "nom": "M-40 Lubricant", "grade": "Lubrifiant multifonction anti-rouille", "normes": "400 ml", "image": "/images/produits/m40-silicone.webp" },
+    { "categorie": "carcare", "badge": "Car care", "nom": "Glas Cleaner", "grade": "Nettoyant vitres, phares, rétroviseurs", "normes": "Prêt à l'emploi", "image": "/images/produits/glas-cleaner.webp" },
+    { "categorie": "carcare", "badge": "Filtre", "nom": "Filtre à huile · à carburant", "grade": "Toutes marques sur demande", "normes": "OEM", "image": "/images/produits/filtre-generique.svg" },
+    { "categorie": "carcare", "badge": "Accessoire", "nom": "Pompe à vidange manuelle", "grade": "Aspiration moteur", "normes": "6 L", "image": "/images/produits/pompe-vidange.svg" }
   ]
 }

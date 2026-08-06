@@ -21,7 +21,7 @@ function cardHtml(p) {
     : '';
   var nom = p.nom.replace(/'/g, '&#39;');
   var vis = p.image
-    ? '<img src="' + p.image + '" alt="' + p.nom + '" loading="lazy" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:contain;">'
+    ? '<img src="' + p.image + '" alt="' + p.nom + '" loading="lazy" referrerpolicy="no-referrer">'
     : '<span class="label">' + (p.badge || '') + '</span>';
   return '<article class="prod-card">'
     + '<div class="prod-vis' + (p.image ? ' has-image' : '') + '">' + vis + '</div>'
