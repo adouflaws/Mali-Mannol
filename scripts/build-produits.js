@@ -33,16 +33,51 @@ function cardHtml(p) {
     + '</article>';
 }
 
-var totalReplaced = 0;
-html = html.replace(
-  /(<div class="prod-cat" data-cat="([a-z]+)"[^>]*>[\s\S]*?<div class="prod-grid">)([\s\S]*?)(<\/div>)/g,
-  function (match, before, cat, _current, after) {
-    var products = bycat[cat] || [];
-    totalReplaced++;
-    return before + products.map(cardHtml).join('') + after;
+// Trouve l'index de la balise </div> qui ferme exactement la balise <div class="prod-grid">
+// ouverte a gridOpenEnd, en comptant la profondeur des <div> imbriques (les cartes
+// produit contiennent elles-memes plusieurs <div> non balances par un regex naif).
+function findGridCloseIndex(html, gridOpenEnd) {
+  var tagRe = /<div\b|<\/div>/g;
+  tagRe.lastIndex = gridOpenEnd;
+  var depth = 1;
+  var m;
+  while ((m = tagRe.exec(html))) {
+    if (m[0] === '<div' || m[0].indexOf('<div') === 0) depth++;
+    else depth--;
+    if (depth === 0) return m.index;
   }
-);
+  throw new Error('Balise </div> de fermeture introuvable pour .prod-grid');
+}
+
+var catOpenRe = /<div class="prod-cat" data-cat="([a-z]+)"[^>]*>/g;
+var totalReplaced = 0;
+var out = '';
+var cursor = 0;
+var catMatch;
+
+while ((catMatch = catOpenRe.exec(html))) {
+  var cat = catMatch[1];
+  var gridOpenRe = /<div class="prod-grid">/g;
+  gridOpenRe.lastIndex = catOpenRe.lastIndex;
+  var gridOpenMatch = gridOpenRe.exec(html);
+  if (!gridOpenMatch) continue;
+
+  var gridOpenEnd = gridOpenMatch.index + gridOpenMatch[0].length;
+  var gridCloseIndex = findGridCloseIndex(html, gridOpenEnd);
+
+  var products = bycat[cat] || [];
+  out += html.slice(cursor, gridOpenEnd) + products.map(cardHtml).join('');
+  cursor = gridCloseIndex;
+  totalReplaced++;
+
+  catOpenRe.lastIndex = gridCloseIndex;
+}
+out += html.slice(cursor);
+html = out;
 
 fs.writeFileSync(htmlPath, html, 'utf8');
+
+var finalCardCount = (html.match(/class="prod-card"/g) || []).length;
 console.log('Categories mises a jour :', totalReplaced);
 console.log('Produits injectes :', data.produits.length);
+console.log('Cartes .prod-card dans le fichier final :', finalCardCount, finalCardCount === data.produits.length ? '(OK)' : '(MISMATCH !)');

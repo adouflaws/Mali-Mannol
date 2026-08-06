@@ -21,6 +21,7 @@
   --creme: #F4F9FF;          /* fond légèrement bleuté, signature */
   --or: #F5C200;             /* jaune MANNOL — accent fort et précis */
   --or-fonce: #C49A00;
+  --rouge: #C0392B;           /* accent panier / erreurs — deja utilise en dur pour les etats d'erreur formulaire */
 
   --r-sm: 4px;
   --r-md: 8px;
