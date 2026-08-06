@@ -54,7 +54,7 @@
     { "categorie": "carcare", "badge": "Car care", "nom": "Engine Cleaner", "grade": "Dégraissant moteur", "normes": "1 L", "image": "/images/produits/engine-cleaner.webp" },
     { "categorie": "carcare", "badge": "Car care", "nom": "M-40 Lubricant", "grade": "Lubrifiant multifonction anti-rouille", "normes": "400 ml", "image": "/images/produits/m40-silicone.webp" },
     { "categorie": "carcare", "badge": "Car care", "nom": "Glas Cleaner", "grade": "Nettoyant vitres, phares, rétroviseurs", "normes": "Prêt à l'emploi", "image": "/images/produits/glas-cleaner.webp" },
-    { "categorie": "carcare", "badge": "Filtre", "nom": "Filtre à huile · à carburant", "grade": "Toutes marques sur demande", "normes": "OEM", "image": "/images/produits/filtre-generique.svg" },
-    { "categorie": "carcare", "badge": "Accessoire", "nom": "Pompe à vidange manuelle", "grade": "Aspiration moteur", "normes": "6 L", "image": "/images/produits/pompe-vidange.svg" }
+    { "categorie": "carcare", "badge": "Filtre", "nom": "Filtre à huile · à carburant", "grade": "Toutes marques sur demande", "normes": "OEM", "image": "/images/produits/filtre-generique.webp" },
+    { "categorie": "carcare", "badge": "Accessoire", "nom": "Pompe à vidange manuelle", "grade": "Aspiration 9 L, hand pump", "normes": "Oil Extractor 9317", "image": "/images/produits/pompe-vidange.webp" }
   ]
 }
