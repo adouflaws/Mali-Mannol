@@ -187,6 +187,8 @@ p { text-wrap: pretty; }
 .brand-text .lockup {
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
+  width: fit-content;
   font-family: var(--ff-display);
 }
 .brand-text .lockup-main {
@@ -195,10 +197,9 @@ p { text-wrap: pretty; }
   letter-spacing: -.02em;
   text-transform: uppercase;
   color: var(--or);
-  font-style: italic;
   transform: skewX(-8deg);
   transform-origin: left bottom;
-  display: inline-block;
+  width: fit-content;
 }
 .brand-text .lockup-main::after {
   content: "®";
