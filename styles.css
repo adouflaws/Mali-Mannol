@@ -190,17 +190,31 @@ p { text-wrap: pretty; }
   font-family: var(--ff-display);
 }
 .brand-text .lockup-main {
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: .02em;
+  font-weight: 900;
+  font-size: 1.15rem;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
   color: var(--or);
+  font-style: italic;
+  transform: skewX(-8deg);
+  transform-origin: left bottom;
+  display: inline-block;
+}
+.brand-text .lockup-main::after {
+  content: "®";
+  font-style: normal;
+  font-weight: 600;
+  font-size: .45em;
+  vertical-align: super;
+  margin-left: 1px;
+  letter-spacing: 0;
 }
 .brand-text .lockup-sub {
   align-self: flex-end;
   margin-top: 2px;
-  font-weight: 700;
-  font-size: .58rem;
-  letter-spacing: .1em;
+  font-weight: 800;
+  font-size: .6rem;
+  letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--blanc);
 }
@@ -1934,7 +1948,6 @@ section.block.alt { background: var(--blanc); }
   border-radius: 2px;
   bottom: -20px;
 }
-.brand-text .lockup-main { font-size: 1.1rem; letter-spacing: .04em; }
 .brand-text .sub { letter-spacing: .16em; font-size: .6rem; margin-top: 5px; }
 
 /* 2. BOUTONS — transitions plus élégantes */
