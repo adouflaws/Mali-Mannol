@@ -345,6 +345,11 @@ p { text-wrap: pretty; }
 .btn-finder .finder-icon svg { width: 12px; height: 12px; }
 .btn-finder:hover .finder-icon { background: var(--blanc); color: var(--or-fonce); }
 
+.btn-finder-blue { background: var(--bleu); color: var(--blanc); box-shadow: 0 10px 26px -10px rgba(0,87,184,.55); }
+.btn-finder-blue:hover { background: var(--bleu-fonce); color: var(--blanc); }
+.btn-finder-blue .finder-icon { background: var(--blanc); color: var(--bleu); }
+.btn-finder-blue:hover .finder-icon { background: var(--blanc); color: var(--bleu-fonce); }
+
 /* Finder banner — bold strip block */
 .finder-banner {
   position: relative;
@@ -695,6 +700,49 @@ p { text-wrap: pretty; }
 @media (max-width: 760px) {
   .info-grid { grid-template-columns: 1fr; }
 }
+
+.info-cell .pdv-tag {
+  display: inline-block;
+  font-family: var(--ff-mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--bleu);
+  background: rgba(0,87,184,.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.info-cell .pdv-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+}
+.info-cell .pdv-detail svg {
+  width: 16px;
+  height: 16px;
+  color: var(--bleu);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.info-cell .pdv-detail span {
+  color: var(--gris-500);
+  font-size: .85rem;
+  line-height: 1.5;
+}
+.info-cell .pdv-detail a { color: var(--gris-500); }
+.info-cell .pdv-detail a:hover { color: var(--bleu); }
+.info-cell .pdv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  color: var(--bleu);
+  font-weight: 600;
+  font-size: .88rem;
+}
+.info-cell .pdv-link:hover { color: var(--bleu-fonce); text-decoration: underline; }
 
 /* SHOWROOM GALLERY */
 .showroom-grid {
