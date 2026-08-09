@@ -1833,9 +1833,14 @@ section.block.alt { background: var(--blanc); }
 }
 
 /* ============================ MOBILE NAV ============================ */
-@media (max-width: 920px) {
-  .primary-nav, .nav-cta .btn:not(.nav-toggle) { display: none; }
+/* Seuil relevé à 1180px : avec les 2 boutons finder + devis + 5 liens,
+   la navbar desktop se retrouve trop juste entre 920-1180px (texte replié) */
+@media (max-width: 1180px) {
+  .primary-nav, .nav-cta .btn:not(.nav-toggle), .nav-cta .btn-finder { display: none; }
   .nav-toggle { display: inline-flex; }
+  .nav-wrap { padding: 12px 0; }
+}
+@media (max-width: 920px) {
   .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
   .hero-visual { aspect-ratio: 4/3; max-width: 420px; }
   .stats-bar-grid > div { padding: 22px 18px; }
@@ -2548,11 +2553,7 @@ h2 { margin-top: 4px; }
    RESPONSIVE MOBILE — correctifs
    ============================================================ */
 
-/* Navigation : le .btn-finder n'est pas un .btn, il faut le cacher explicitement */
-@media (max-width: 920px) {
-  .nav-cta .btn-finder { display: none; }
-  .nav-wrap { padding: 12px 0; }
-}
+/* Navigation : gérée par le seuil 1180px ci-dessus (voir MOBILE NAV) */
 
 /* Page header — padding trop grand sur mobile */
 @media (max-width: 640px) {
