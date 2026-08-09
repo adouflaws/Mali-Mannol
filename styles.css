@@ -2755,12 +2755,24 @@ h2 { margin-top: 4px; }
     padding: 8px 4px;
   }
 
-  /* Bannière filtres SCT — empilée au lieu de 2 colonnes écrasées */
+}
+
+/* Bannière filtres SCT — empilée dès la tablette portrait, pas juste le mobile */
+@media (max-width: 820px) {
   .filters-banner {
     grid-template-columns: 1fr !important;
   }
   .filters-banner-img {
-    height: 180px !important;
+    height: 220px !important;
+  }
+}
+
+/* Marge de sécurité : texte qui ne doit jamais passer sous les FABs (tel/WhatsApp/panier) */
+@media (max-width: 640px) {
+  .hd-copy p.lead,
+  .finder-banner p,
+  .promo-offer p {
+    padding-right: 64px;
   }
 }
 
