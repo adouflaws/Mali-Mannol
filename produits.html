@@ -43,7 +43,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <div class="top"><a class="brand" href="index.html"><span class="brand-text"><span class="lockup"><span class="lockup-main">Mannol</span><span class="lockup-sub">Mali</span></span><span class="sub">Distributeur officiel</span></span></a><button class="nav-toggle" aria-label="Fermer le menu" onclick="document.getElementById('mobileMenu').classList.remove('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="links"><a href="index.html">Accueil</a><a href="a-propos.html">À propos</a><a href="produits.html">Produits</a><a href="services.html">Services</a><a href="contact.html">Contact</a></div>
-  <div class="ctas"><a class="btn btn-primary" href="contact.html">Devis</a><a class="btn btn-whatsapp" href="https://wa.me/22366739612">WhatsApp</a></div>
+  <div class="ctas"><a class="btn-finder" href="https://www.mannol.de/fr/produits" target="_blank" rel="noopener"><span class="finder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>Trouvez votre produit</a><a class="btn-finder btn-finder-blue" href="https://sct-oilfinder.sct-germany.de/SCTOilfinder/index.php?LE=EN&SPL=Mannol#Menu2" target="_blank" rel="noopener"><span class="finder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>L'huile pour votre moteur</a><a class="btn btn-primary" href="contact.html">Devis</a><a class="btn btn-whatsapp" href="https://wa.me/22366739612">WhatsApp</a></div>
 </div>
 
 <section class="page-header">
@@ -447,7 +447,7 @@
 .cart-badge{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;background:#111;color:#fff;font-size:.65rem;font-weight:700;border-radius:10px;display:none;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff;}
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s;}
 .cart-overlay.open{opacity:1;pointer-events:all;}
-.cart-drawer{position:fixed;top:0;right:0;width:min(390px,100vw);height:100dvh;background:#fff;z-index:1001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 32px rgba(0,0,0,.18);}
+.cart-drawer{position:fixed;top:0;right:0;width:min(390px,100vw);max-height:100dvh;background:#fff;z-index:1001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 32px rgba(0,0,0,.18);}
 .cart-drawer.open{transform:translateX(0);}
 .cart-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #eee;background:#111;color:#fff;flex-shrink:0;}
 .cart-head h3{margin:0;font-size:1rem;letter-spacing:.04em;font-family:var(--ff-head,Montserrat,sans-serif);}
