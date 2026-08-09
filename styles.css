@@ -2753,6 +2753,14 @@ h2 { margin-top: 4px; }
     font-size: .68rem;
     padding: 8px 4px;
   }
+
+  /* Bannière filtres SCT — empilée au lieu de 2 colonnes écrasées */
+  .filters-banner {
+    grid-template-columns: 1fr !important;
+  }
+  .filters-banner-img {
+    height: 180px !important;
+  }
 }
 
 /* ---- Page Services ---- */
