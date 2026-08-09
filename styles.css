@@ -2550,7 +2550,7 @@ h2 { margin-top: 4px; }
 
 /* Page header — padding trop grand sur mobile */
 @media (max-width: 640px) {
-  .page-header { padding: 52px 0 60px; }
+  .page-header { padding: calc(52px + var(--header-h, 84px)) 0 60px; }
   .page-header h1 { max-width: 100%; }
   .page-header p { font-size: 1rem; }
 }
@@ -2652,7 +2652,7 @@ h2 { margin-top: 4px; }
   /* Hero — plus d'espace entre les blocs */
   .hero-grid {
     gap: 2.4rem;
-    padding-top: clamp(48px, 9vw, 72px);
+    padding-top: calc(clamp(48px, 9vw, 72px) + var(--header-h, 84px));
     padding-bottom: clamp(40px, 8vw, 64px);
   }
   .hero-copy { display: flex; flex-direction: column; gap: 1rem; }
@@ -2747,7 +2747,7 @@ h2 { margin-top: 4px; }
 /* Très petits écrans < 360px */
 @media (max-width: 360px) {
   .brand-text .sub { display: none; }
-  .page-header { padding: 40px 0 48px; }
+  .page-header { padding: calc(40px + var(--header-h, 84px)) 0 48px; }
   .mobile-menu .links a { font-size: 1.35rem; }
   .hero-copy h1 { font-size: 1.75rem; }
   .spec-grade { font-size: 1.85rem; }
