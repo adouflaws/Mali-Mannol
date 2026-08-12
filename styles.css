@@ -2657,9 +2657,9 @@ h2 { margin-top: 4px; }
   .mobile-menu { padding: 24px; }
 
   /* Logo header — un peu plus grand et visible sur mobile */
-  .brand-text .lockup-main { font-size: 1.35rem; }
-  .brand-text .lockup-sub { font-size: .7rem; }
-  .brand-text .sub { font-size: .66rem; }
+  .brand-text .lockup-main { font-size: 1.6rem; }
+  .brand-text .lockup-sub { font-size: .82rem; }
+  .brand-text .sub { font-size: .7rem; }
 
   /* Tailles de texte — ni trop grandes ni trop petites */
   h1 { font-size: clamp(1.95rem, 7.5vw, 2.4rem); }
