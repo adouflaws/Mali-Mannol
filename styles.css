@@ -1840,6 +1840,14 @@ section.block.alt { background: var(--blanc); }
   .nav-toggle { display: inline-flex; }
   .nav-wrap { padding: 12px 0; }
 }
+
+/* Hero accueil — bascule mobile : boutons finder visibles direct dans le hero,
+   Devis/Voir les produits se retrouvent dans le menu hamburger à la place */
+.hero-actions.hero-actions-finder { display: none; }
+@media (max-width: 1180px) {
+  .hero-actions.hero-actions-desktop { display: none; }
+  .hero-actions.hero-actions-finder { display: flex; }
+}
 @media (max-width: 920px) {
   .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
   .hero-visual { aspect-ratio: 4/3; max-width: 420px; }
@@ -2647,6 +2655,11 @@ h2 { margin-top: 4px; }
   /* Container — plus de marge sur les bords du téléphone */
   .container { padding-inline: 24px; }
   .mobile-menu { padding: 24px; }
+
+  /* Logo header — un peu plus grand et visible sur mobile */
+  .brand-text .lockup-main { font-size: 1.35rem; }
+  .brand-text .lockup-sub { font-size: .7rem; }
+  .brand-text .sub { font-size: .66rem; }
 
   /* Tailles de texte — ni trop grandes ni trop petites */
   h1 { font-size: clamp(1.95rem, 7.5vw, 2.4rem); }
