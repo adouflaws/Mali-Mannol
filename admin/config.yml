@@ -1,0 +1,144 @@
+backend:
+  name: github
+  repo: adouflaws/Mali-Mannol
+  branch: main
+  base_url: https://www.mannol-mali.com
+  auth_endpoint: api/auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "fr"
+
+collections:
+  - name: "contenu"
+    label: "Informations générales"
+    editor:
+      preview: false
+    files:
+      - name: "contenu"
+        label: "Coordonnées & textes"
+        file: "data/contenu.json"
+        fields:
+          - {label: "Téléphone", name: "phone", widget: "string", hint: "Format affiché, ex: +223 66 73 96 12"}
+          - {label: "Numéro WhatsApp", name: "whatsapp", widget: "string", hint: "Sans espaces ni +, ex: 22366739612"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Adresse", name: "adresse", widget: "string"}
+          - {label: "Horaires", name: "horaires", widget: "string"}
+          - {label: "Titre principal (page d'accueil)", name: "hero_titre", widget: "string"}
+          - {label: "Texte sous le titre (page d'accueil)", name: "hero_description", widget: "text"}
+          - {label: "Texte court (pied de page, toutes les pages)", name: "apropos_court", widget: "text"}
+
+  - name: "services"
+    label: "Services"
+    editor:
+      preview: false
+    files:
+      - name: "services"
+        label: "Les 6 services (page Services)"
+        file: "data/services.json"
+        fields:
+          - name: "svc1"
+            label: "Service 1"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Titre", name: "titre", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Points (un par ligne)", name: "points", widget: "text"}
+          - name: "svc2"
+            label: "Service 2"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Titre", name: "titre", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Points (un par ligne)", name: "points", widget: "text"}
+          - name: "svc3"
+            label: "Service 3"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Titre", name: "titre", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Points (un par ligne)", name: "points", widget: "text"}
+          - name: "svc4"
+            label: "Service 4"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Titre", name: "titre", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Points (un par ligne)", name: "points", widget: "text"}
+          - name: "svc5"
+            label: "Service 5"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Titre", name: "titre", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Points (un par ligne)", name: "points", widget: "text"}
+          - name: "svc6"
+            label: "Service 6"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Titre", name: "titre", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Points (un par ligne)", name: "points", widget: "text"}
+
+  - name: "photos"
+    label: "Photos"
+    editor:
+      preview: false
+    files:
+      - name: "images"
+        label: "Photos des services + divers"
+        file: "data/images.json"
+        fields:
+          - {label: "Photo service 1", name: "service_1", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Photo service 2", name: "service_2", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Photo service 3", name: "service_3", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Photo service 4", name: "service_4", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Photo service 5", name: "service_5", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Photo service 6", name: "service_6", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Hero (non utilisé actuellement)", name: "hero", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "About (non utilisé actuellement)", name: "about", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Produit 1 (non utilisé actuellement)", name: "produit_1", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Produit 2 (non utilisé actuellement)", name: "produit_2", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Produit 3 (non utilisé actuellement)", name: "produit_3", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Produit 4 (non utilisé actuellement)", name: "produit_4", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Produit 5 (non utilisé actuellement)", name: "produit_5", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+          - {label: "Produit 6 (non utilisé actuellement)", name: "produit_6", widget: "image", required: false, media_folder: "/images", public_folder: "/images"}
+
+  - name: "produits"
+    label: "Catalogue produits"
+    editor:
+      preview: false
+    files:
+      - name: "produits"
+        label: "Tous les produits"
+        file: "data/produits.json"
+        fields:
+          - name: "produits"
+            label: "Produits"
+            widget: "list"
+            summary: "{{fields.nom}} — {{fields.categorie}}"
+            fields:
+              - label: "Catégorie"
+                name: "categorie"
+                widget: "select"
+                options:
+                  - {label: "Huiles moteur", value: "moteur"}
+                  - {label: "Transmission", value: "trans"}
+                  - {label: "Poids lourd & engins", value: "pl"}
+                  - {label: "Moto", value: "moto"}
+                  - {label: "Fluides", value: "fluides"}
+                  - {label: "Additifs", value: "additifs"}
+                  - {label: "Graisses", value: "graisses"}
+                  - {label: "Entretien & filtres", value: "carcare"}
+              - {label: "Badge (court, ex: Synthétique)", name: "badge", widget: "string", required: false}
+              - {label: "Nom du produit", name: "nom", widget: "string"}
+              - {label: "Grade / description courte", name: "grade", widget: "string"}
+              - {label: "Normes (séparées par des virgules)", name: "normes", widget: "string", required: false}
+              - {label: "Photo", name: "image", widget: "image", media_folder: "/images/produits", public_folder: "/images/produits"}

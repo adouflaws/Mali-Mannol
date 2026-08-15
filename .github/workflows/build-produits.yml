@@ -1,0 +1,35 @@
+name: Regenere produits.html
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/produits.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: node scripts/build-produits.js
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add produits.html
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: regenere produits.html depuis produits.json"
+            git push
+          else
+            echo "Rien a regenerer"
+          fi

@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 # Crawlers IA — indexation/citation dans les reponses (GEO)
 User-agent: OAI-SearchBot
