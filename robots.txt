@@ -38,4 +38,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://mali-mannol.vercel.app/sitemap.xml
+Sitemap: https://www.mannol-mali.com/sitemap.xml
