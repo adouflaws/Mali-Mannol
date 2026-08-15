@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/*"
+  to = "https://www.mannol-mali.com/:splat"
+  status = 301
+  force = true
