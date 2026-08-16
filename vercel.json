@@ -21,6 +21,36 @@
       ],
       "destination": "https://www.mannol-mali.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/produits",
+      "destination": "/produits.html",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/services.html",
+      "permanent": true
+    },
+    {
+      "source": "/a-propos",
+      "destination": "/a-propos.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide-huile-moteur",
+      "destination": "/guide-huile-moteur.html",
+      "permanent": true
     }
   ]
 }
