@@ -141,4 +141,5 @@ collections:
               - {label: "Nom du produit", name: "nom", widget: "string"}
               - {label: "Grade / description courte", name: "grade", widget: "string"}
               - {label: "Normes (séparées par des virgules)", name: "normes", widget: "string", required: false}
+              - {label: "Mots-clés recherche (invisibles, ex: liquide de frein)", name: "motscles", widget: "string", required: false}
               - {label: "Photo", name: "image", widget: "image", media_folder: "/images/produits", public_folder: "/images/produits"}

@@ -24,8 +24,14 @@
   function write(key, val) {
     try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
   }
+  var KEY_SENT = 'mannol_cart_sent';
   function load() { return read(KEY, []); }
-  function save(c) { write(KEY, c); }
+  // Toute modification du panier annule l'état "commande envoyée"
+  function save(c) { write(KEY, c); setSent(false); }
+  function isSent() { return !!read(KEY_SENT, 0); }
+  function setSent(on) {
+    try { on ? localStorage.setItem(KEY_SENT, JSON.stringify(Date.now())) : localStorage.removeItem(KEY_SENT); } catch (e) {}
+  }
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (ch) {
@@ -125,7 +131,13 @@
       foot.hidden = true;
       return;
     }
-    body.innerHTML = c.map(function (item, idx) {
+    var sent = isSent()
+      ? '<div class="cart-sent" role="status"><p><strong>Commande ouverte dans WhatsApp.</strong> '
+        + 'Pensez à appuyer sur « Envoyer » dans WhatsApp. C\'est fait ?</p>'
+        + '<div><button type="button" data-sent="clear">Oui, vider le panier</button>'
+        + '<button type="button" data-sent="keep">Garder</button></div></div>'
+      : '';
+    body.innerHTML = sent + c.map(function (item, idx) {
       var formats = FORMATS[item.cat];
       return '<div class="cart-item">'
         + '<div class="cart-item-main">'
@@ -161,6 +173,17 @@
   }
 
   body.addEventListener('click', function (e) {
+    var s = e.target.closest('button[data-sent]');
+    if (s) {
+      if (s.dataset.sent === 'clear') {
+        save([]); refresh();
+        body.innerHTML = '<p class="cart-empty"><strong>Merci !</strong><br/>Mali Mannol vous répond sur WhatsApp avec les prix.</p>';
+        setTimeout(closeCart, 2200);
+      } else {
+        setSent(false); refresh();
+      }
+      return;
+    }
     var b = e.target.closest('button[data-act]');
     if (!b) return;
     var i = +b.dataset.i, c = load();
@@ -189,6 +212,20 @@
     }
     var wa = window.__cartWA || WA_DEFAULT;
     this.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(buildMessage());
+    setSent(true);
+    try { sessionStorage.removeItem(KEY_SENT); } catch (err) {}
+    setTimeout(refresh, 400);
+  });
+
+  // Au retour depuis WhatsApp, rouvrir le panier une fois pour proposer de le vider
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible' || !isSent() || !load().length) return;
+    try {
+      if (sessionStorage.getItem(KEY_SENT)) return;
+      sessionStorage.setItem(KEY_SENT, '1');
+    } catch (err) {}
+    refresh();
+    if (!drawer.classList.contains('open')) openCart();
   });
 
   // ---------- Ouverture / fermeture ----------

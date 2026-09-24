@@ -23,12 +23,12 @@ function cardHtml(p) {
   var vis = p.image
     ? '<img src="' + p.image + '" alt="' + p.nom + '" loading="lazy" referrerpolicy="no-referrer">'
     : '<span class="label">' + (p.badge || '') + '</span>';
-  return '<article class="prod-card">'
+  var kw = p.motscles ? ' data-kw="' + p.motscles.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"' : '';
+  return '<article class="prod-card"' + kw + '>'
     + '<div class="prod-vis' + (p.image ? ' has-image' : '') + '">' + vis + '</div>'
     + '<h3>' + p.nom + '</h3>'
     + '<div class="grade">' + p.grade + '</div>'
     + '<div class="standards">' + normes + '</div>'
-    + '<a class="ask" href="contact.html?produit=' + encodeURIComponent(p.nom) + '">Demander le prix</a>'
     + '<button type="button" class="btn-cart-add" data-add="' + nom + '">+ Ajouter au panier</button>'
     + '</article>';
 }
