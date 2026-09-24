@@ -48,7 +48,7 @@
 
     { "categorie": "graisses", "badge": "Li", "nom": "LC-2 Lithium-Calcium", "grade": "Multi-usage · NLGI 2", "normes": "−30 → 130 °C", "motscles": "graisse lithium roulement graisse", "image": "/images/produits/lc2-grease.webp" },
     { "categorie": "graisses", "badge": "EP", "nom": "EP-2 Multi-MoS₂", "grade": "Charges lourdes · disulfure", "normes": "NLGI 2, EP", "motscles": "graisse bisulfure graisse", "image": "/images/produits/ep2-mos2.webp" },
-    { "categorie": "graisses", "badge": "Cuivre", "nom": "Copper Paste", "grade": "Pâte cuivre haute température", "normes": "1100 °C", "motscles": "graisse cuivre pate graisse", "promo": true, "promo_texte": "TEST", "image": "/images/produits/copper-paste.webp" },
+    { "categorie": "graisses", "badge": "Cuivre", "nom": "Copper Paste", "grade": "Pâte cuivre haute température", "normes": "1100 °C", "motscles": "graisse cuivre pate graisse", "image": "/images/produits/copper-paste.webp" },
 
     { "categorie": "carcare", "badge": "Car care", "nom": "Brake Cleaner", "grade": "Nettoyant freins & pièces", "normes": "500 ml", "motscles": "nettoyant frein entretien", "image": "/images/produits/brake-cleaner.webp" },
     { "categorie": "carcare", "badge": "Car care", "nom": "Engine Cleaner", "grade": "Dégraissant moteur", "normes": "1 L", "motscles": "nettoyant moteur degraissant entretien", "image": "/images/produits/engine-cleaner.webp" },
