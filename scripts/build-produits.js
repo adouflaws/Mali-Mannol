@@ -19,7 +19,7 @@ function cardHtml(p) {
   var normes = p.normes
     ? p.normes.split(',').map(function (n) { return '<span>' + n.trim() + '</span>'; }).join('')
     : '';
-  var nom = p.nom.replace(/'/g, '&#39;');
+  var nom = p.nom.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
   var vis = p.image
     ? '<img src="' + p.image + '" alt="' + p.nom + '" loading="lazy" referrerpolicy="no-referrer">'
     : '<span class="label">' + (p.badge || '') + '</span>';
@@ -29,7 +29,7 @@ function cardHtml(p) {
     + '<div class="grade">' + p.grade + '</div>'
     + '<div class="standards">' + normes + '</div>'
     + '<a class="ask" href="contact.html?produit=' + encodeURIComponent(p.nom) + '">Demander le prix</a>'
-    + '<button class="btn-cart-add" onclick="if(window.__addToCart)window.__addToCart(\'' + nom + '\')">+ Ajouter au panier</button>'
+    + '<button type="button" class="btn-cart-add" data-add="' + nom + '">+ Ajouter au panier</button>'
     + '</article>';
 }
 
