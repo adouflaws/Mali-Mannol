@@ -54,8 +54,41 @@
       // Mettre a jour le numero dans le script panier si present
       if (window.__cartWA !== undefined) window.__cartWA = d.whatsapp;
 
+      // Bandeau de promotion (gere depuis /admin), en haut de toutes les pages
+      showPromoBanner(d);
+
     })
     .catch(function () { /* contenu.json absent ou erreur — page affiche valeurs statiques */ });
+
+  function showPromoBanner(d) {
+    if (!d.bandeau_actif || !d.bandeau_texte) return;
+    var today = new Date().toISOString().slice(0, 10); // Bamako = UTC
+    if (d.bandeau_fin && today > d.bandeau_fin) return;
+    var key = 'mm_banner_closed';
+    try { if (sessionStorage.getItem(key) === d.bandeau_texte) return; } catch (e) {}
+    var header = document.querySelector('.site-header');
+    if (!header || header.querySelector('.promo-banner')) return;
+
+    var bar = document.createElement('div');
+    bar.className = 'promo-banner';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Promotion');
+    var text = document.createElement('p');
+    text.textContent = d.bandeau_texte;
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Masquer la promotion');
+    close.innerHTML = '&#10005;';
+    close.addEventListener('click', function () {
+      bar.remove();
+      try { sessionStorage.setItem(key, d.bandeau_texte); } catch (e) {}
+      window.dispatchEvent(new Event('resize')); // recalcule --header-h
+    });
+    bar.appendChild(text);
+    bar.appendChild(close);
+    header.insertBefore(bar, header.firstChild);
+    window.dispatchEvent(new Event('resize'));
+  }
 })();
 
 // Images — injecte les images depuis data/images.json

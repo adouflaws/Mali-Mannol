@@ -1,12 +1,158 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Administration — Mannol Mali</title>
+<meta name="theme-color" content="#08152B">
+<title>Admin — Mali Mannol</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230057B8'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' fill='%23FFFFFF' font-family='Helvetica' font-weight='900' font-size='28'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/admin/admin.css">
 </head>
 <body>
-<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+<!-- Connexion -->
+<main id="login" class="login" hidden>
+  <form id="loginForm" class="login-card">
+    <div class="brand"><span class="brand-m">M</span><div><strong>Mali Mannol</strong><span>Espace administration</span></div></div>
+    <label for="pwd">Mot de passe</label>
+    <input id="pwd" type="password" autocomplete="current-password" required>
+    <p class="form-error" id="loginError" role="alert" hidden></p>
+    <button class="btn btn-primary" type="submit">Se connecter</button>
+  </form>
+</main>
+
+<!-- Application -->
+<div id="app" hidden>
+  <header class="topbar">
+    <div class="brand small"><span class="brand-m">M</span><strong>Admin</strong></div>
+    <a class="topbar-link" href="/" target="_blank" rel="noopener">Voir le site ↗</a>
+    <button class="topbar-link" id="logout" type="button">Déconnexion</button>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" id="tab-produits" aria-controls="view-produits" aria-selected="true">Produits</button>
+    <button role="tab" id="tab-promo" aria-controls="view-promo" aria-selected="false">Promotion</button>
+    <button role="tab" id="tab-infos" aria-controls="view-infos" aria-selected="false">Infos du site</button>
+  </nav>
+
+  <!-- Produits -->
+  <section id="view-produits" class="view" role="tabpanel" aria-labelledby="tab-produits">
+    <div class="view-head">
+      <input id="search" type="search" placeholder="Rechercher un produit…" aria-label="Rechercher un produit">
+      <button class="btn btn-primary" id="addProduct" type="button">+ Ajouter</button>
+    </div>
+    <div class="chips" id="catChips"></div>
+    <ul class="prod-list" id="prodList"></ul>
+  </section>
+
+  <!-- Promotion -->
+  <section id="view-promo" class="view" role="tabpanel" aria-labelledby="tab-promo" hidden>
+    <div class="card">
+      <div class="card-head">
+        <div><h2>Bandeau en haut du site</h2><p class="hint">Visible sur toutes les pages. Idéal pour une offre du moment.</p></div>
+        <label class="switch"><input type="checkbox" id="bActif"><span aria-hidden="true"></span><span class="sr-only">Bandeau activé</span></label>
+      </div>
+      <label for="bTexte">Texte du bandeau</label>
+      <textarea id="bTexte" rows="2" maxlength="160" placeholder="Ex. Vidange offerte pour tout achat d'huile moteur jusqu'au 31 octobre"></textarea>
+      <p class="counter"><span id="bCount">0</span>/160</p>
+      <label for="bFin">Date de fin <span class="opt">(facultatif — le bandeau disparaît automatiquement après)</span></label>
+      <input id="bFin" type="date">
+      <p class="hint">Aperçu :</p>
+      <div class="banner-preview" id="bPreview"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><h2>Produits en promotion</h2><p class="hint">Badge « PROMO » sur la fiche, placée en tête de sa catégorie.</p></div>
+      </div>
+      <ul class="prod-list compact" id="promoList"></ul>
+      <button class="btn btn-ghost" id="addPromo" type="button">+ Mettre un produit en promotion</button>
+    </div>
+  </section>
+
+  <!-- Infos -->
+  <section id="view-infos" class="view" role="tabpanel" aria-labelledby="tab-infos" hidden>
+    <form class="card" id="infosForm" novalidate>
+      <h2>Coordonnées</h2>
+      <label for="iPhone">Téléphone affiché</label><input id="iPhone" name="phone" type="tel" maxlength="40">
+      <label for="iWa">Numéro WhatsApp <span class="opt">(chiffres, indicatif compris : 223…)</span></label><input id="iWa" name="whatsapp" inputmode="numeric" maxlength="20">
+      <label for="iEmail">Email</label><input id="iEmail" name="email" type="email" maxlength="120">
+      <label for="iAdresse">Adresse</label><input id="iAdresse" name="adresse" maxlength="200">
+      <label for="iHoraires">Horaires</label><textarea id="iHoraires" name="horaires" rows="2" maxlength="200"></textarea>
+      <h2>Page d'accueil</h2>
+      <label for="iTitre">Grand titre</label><textarea id="iTitre" name="hero_titre" rows="2" maxlength="120"></textarea>
+      <label for="iDesc">Texte sous le titre</label><textarea id="iDesc" name="hero_description" rows="4" maxlength="400"></textarea>
+      <label for="iCourt">Phrase de présentation (pied de page)</label><textarea id="iCourt" name="apropos_court" rows="2" maxlength="200"></textarea>
+    </form>
+  </section>
+
+  <!-- Barre de publication -->
+  <div class="publish-bar" id="publishBar" hidden>
+    <p><strong id="pendingCount">Modifications</strong> non publiées</p>
+    <button class="btn btn-ghost-light" id="discard" type="button">Annuler</button>
+    <button class="btn btn-gold" id="publish" type="button">Publier sur le site</button>
+  </div>
+</div>
+
+<!-- Fiche produit -->
+<dialog id="editor" class="sheet" aria-labelledby="editorTitle">
+  <form id="editorForm" method="dialog" novalidate>
+    <header class="sheet-head">
+      <h2 id="editorTitle">Produit</h2>
+      <button class="icon-btn" type="button" id="editorClose" aria-label="Fermer">✕</button>
+    </header>
+    <div class="sheet-body">
+      <div class="photo-field">
+        <div class="photo-preview" id="photoPreview"><span>Pas de photo</span></div>
+        <label class="btn btn-ghost" for="photoInput">📷 Choisir une photo</label>
+        <input id="photoInput" type="file" accept="image/*" class="sr-only">
+        <p class="hint">Photo du produit sur fond uni de préférence. Elle est recadrée et allégée automatiquement.</p>
+      </div>
+      <label for="fNom">Nom du produit *</label><input id="fNom" maxlength="80" required>
+      <p class="form-error" id="nomError" hidden></p>
+      <label for="fCat">Catégorie *</label><select id="fCat"></select>
+      <label for="fGrade">Description courte</label><input id="fGrade" maxlength="140" placeholder="Ex. SAE 5W-30 · 100 % synthétique">
+      <label for="fNormes">Normes <span class="opt">(séparées par des virgules)</span></label><input id="fNormes" maxlength="220" placeholder="Ex. API SN/CF, ACEA A3/B4">
+
+      <div class="promo-box">
+        <label class="switch-row" for="fPromo">
+          <span><strong>En promotion</strong><br><span class="hint">Affiche un badge « PROMO » sur la fiche</span></span>
+          <span class="switch"><input type="checkbox" id="fPromo"><span aria-hidden="true"></span></span>
+        </label>
+        <div id="promoFields" hidden>
+          <label for="fPromoTexte">Texte de la promo</label>
+          <input id="fPromoTexte" maxlength="70" placeholder="Ex. -10 % sur le carton de 4 bidons">
+        </div>
+      </div>
+
+      <details class="advanced">
+        <summary>Options avancées</summary>
+        <label for="fBadge">Étiquette courte <span class="opt">(ex. Synthétique)</span></label><input id="fBadge" maxlength="30">
+        <label for="fKw">Mots-clés de recherche <span class="opt">(invisibles, aident les clients à trouver le produit)</span></label><input id="fKw" maxlength="220" placeholder="Ex. liquide de frein, abs">
+      </details>
+    </div>
+    <footer class="sheet-foot">
+      <button class="btn btn-danger" type="button" id="deleteProduct">Supprimer</button>
+      <button class="btn btn-primary" type="submit" id="saveProduct">Valider</button>
+    </footer>
+  </form>
+</dialog>
+
+<!-- Choix d'un produit à mettre en promo -->
+<dialog id="picker" class="sheet" aria-labelledby="pickerTitle">
+  <header class="sheet-head">
+    <h2 id="pickerTitle">Choisir un produit</h2>
+    <button class="icon-btn" type="button" id="pickerClose" aria-label="Fermer">✕</button>
+  </header>
+  <div class="sheet-body">
+    <input id="pickerSearch" type="search" placeholder="Rechercher…" aria-label="Rechercher un produit">
+    <ul class="prod-list compact" id="pickerList"></ul>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/admin/admin.js"></script>
 </body>
 </html>
