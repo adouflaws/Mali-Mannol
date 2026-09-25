@@ -32,8 +32,9 @@
 
   <nav class="tabs" role="tablist" aria-label="Sections">
     <button role="tab" id="tab-produits" aria-controls="view-produits" aria-selected="true">Produits</button>
-    <button role="tab" id="tab-promo" aria-controls="view-promo" aria-selected="false">Promotion</button>
-    <button role="tab" id="tab-infos" aria-controls="view-infos" aria-selected="false">Infos du site</button>
+    <button role="tab" id="tab-promo" aria-controls="view-promo" aria-selected="false">Promo</button>
+    <button role="tab" id="tab-infos" aria-controls="view-infos" aria-selected="false">Infos</button>
+    <button role="tab" id="tab-historique" aria-controls="view-historique" aria-selected="false">Historique</button>
   </nav>
 
   <!-- Produits -->
@@ -87,6 +88,20 @@
     </form>
   </section>
 
+  <!-- Historique -->
+  <section id="view-historique" class="view" role="tabpanel" aria-labelledby="tab-historique" hidden>
+    <div class="card">
+      <h2>Dernière publication</h2>
+      <p class="hint" id="lastInfo">Chargement…</p>
+      <button class="btn btn-danger wide" id="undoLast" type="button" hidden>↶ Annuler la dernière publication</button>
+    </div>
+    <div class="card">
+      <h2>Publications précédentes</h2>
+      <p class="hint">Revenir à une version remet le catalogue, la promotion et les infos du site dans l'état où ils étaient juste après cette publication. Ce retour est lui-même enregistré : on peut toujours revenir en avant.</p>
+      <ul class="history" id="historyList"></ul>
+    </div>
+  </section>
+
   <!-- Barre de publication -->
   <div class="publish-bar" id="publishBar" hidden>
     <p><strong id="pendingCount">Modifications</strong> non publiées</p>
@@ -114,6 +129,23 @@
       <label for="fCat">Catégorie *</label><select id="fCat"></select>
       <label for="fGrade">Description courte</label><input id="fGrade" maxlength="140" placeholder="Ex. SAE 5W-30 · 100 % synthétique">
       <label for="fNormes">Normes <span class="opt">(séparées par des virgules)</span></label><input id="fNormes" maxlength="220" placeholder="Ex. API SN/CF, ACEA A3/B4">
+
+      <fieldset class="field-group">
+        <legend>Disponibilité</legend>
+        <div class="segmented" id="fDispo">
+          <label><input type="radio" name="dispo" value="stock"><span>En stock</span></label>
+          <label><input type="radio" name="dispo" value="commande"><span>Sur commande</span></label>
+          <label><input type="radio" name="dispo" value="rupture"><span>Rupture</span></label>
+        </div>
+        <p class="hint" id="dispoHint"></p>
+      </fieldset>
+
+      <fieldset class="field-group">
+        <legend>Formats vendus <span class="opt">(cochez ceux que vous avez)</span></legend>
+        <div class="format-chips" id="fFormats"></div>
+        <label for="fFormatsAutres">Autres formats <span class="opt">(séparés par des virgules)</span></label>
+        <input id="fFormatsAutres" maxlength="80" placeholder="Ex. 7 L, 10 L">
+      </fieldset>
 
       <div class="promo-box">
         <label class="switch-row" for="fPromo">

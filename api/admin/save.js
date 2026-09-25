@@ -1,7 +1,7 @@
 // Publie les modifications de l'admin : un seul commit GitHub contenant produits.json,
 // contenu.json, les nouvelles photos et produits.html regénéré. Vercel redéploie ensuite le site.
 const { send, configError, isAuthenticated, checkWriteRequest, readFile, commitFiles } = require('./_lib');
-const { render, serialize, CATEGORIES } = require('../../scripts/render-produits');
+const { render, serialize, CATEGORIES, DISPOS } = require('../../scripts/render-produits');
 
 const CONTENU_FIELDS = {
   phone: 40, whatsapp: 20, email: 120, adresse: 200, horaires: 200,
@@ -20,6 +20,38 @@ function str(v, max, field) {
   return v;
 }
 
+function formatsList(v) {
+  if (v == null) return [];
+  if (!Array.isArray(v) || v.length > 12) throw new Error('Liste de formats invalide');
+  const seen = new Set();
+  return v.map(f => str(f, 24, 'format')).filter(f => f && !seen.has(f) && seen.add(f));
+}
+
+// Résumé lisible d'une publication, affiché dans l'onglet Historique de l'admin
+function describeProduits(before, after) {
+  const key = p => p.nom.toLowerCase();
+  const canon = p => JSON.stringify(p, Object.keys(p).sort()); // insensible à l'ordre des champs
+  const old = new Map(before.map(p => [key(p), canon(p)]));
+  const now = new Set(after.map(key));
+  const added = after.filter(p => !old.has(key(p))).map(p => p.nom);
+  const removed = before.filter(p => !now.has(key(p))).map(p => p.nom);
+  const changed = after.filter(p => old.has(key(p)) && old.get(key(p)) !== canon(p)).map(p => p.nom);
+  const list = (verb, names) => names.length === 1 ? names[0] + ' ' + verb
+    : names.length ? names.length + ' produits ' + verb + 's' : '';
+  const parts = [list('ajouté', added), list('supprimé', removed), list('modifié', changed)].filter(Boolean);
+  if (!parts.length && before.map(key).join() !== after.map(key).join()) parts.push('ordre du catalogue');
+  return parts.join(', ');
+}
+
+function describeContenu(before, after) {
+  const parts = [];
+  if (!!before.bandeau_actif !== !!after.bandeau_actif) parts.push(after.bandeau_actif ? 'bandeau activé' : 'bandeau désactivé');
+  else if (after.bandeau_actif && (before.bandeau_texte !== after.bandeau_texte || before.bandeau_fin !== after.bandeau_fin)) parts.push('bandeau modifié');
+  if (Object.keys(CONTENU_FIELDS).some(k => !k.startsWith('bandeau') && (before[k] || '') !== (after[k] || '')))
+    parts.push('infos du site');
+  return parts.join(', ');
+}
+
 function validateProduits(list) {
   if (!Array.isArray(list) || list.length > 400) throw new Error('Liste de produits invalide');
   const names = new Set();
@@ -32,11 +64,16 @@ function validateProduits(list) {
       grade: str(p.grade, 140, 'description'),
       normes: str(p.normes, 220, 'normes'),
       motscles: str(p.motscles, 220, 'mots-clés'),
+      formats: formatsList(p.formats),
+      dispo: p.dispo || 'stock',
       promo: p.promo === true,
       promo_texte: str(p.promo_texte, 70, 'texte promo'),
       image: str(p.image, 120, 'photo')
     };
     if (!CATEGORIES.includes(out.categorie)) throw new Error('Produit ' + n + ' : catégorie inconnue');
+    if (!DISPOS.includes(out.dispo)) throw new Error('Produit « ' + out.nom + ' » : disponibilité inconnue');
+    if (out.dispo === 'stock') delete out.dispo;
+    if (!out.formats.length) delete out.formats;
     if (!out.nom) throw new Error('Produit ' + n + ' : le nom est obligatoire');
     const key = out.nom.toLowerCase();
     if (names.has(key)) throw new Error('Deux produits portent le nom « ' + out.nom + ' »');
@@ -73,7 +110,11 @@ function decodeImage(img, referenced) {
   return { path: img.path, content: buf };
 }
 
-module.exports = async (req, res) => {
+module.exports = handler;
+module.exports.validateProduits = validateProduits;
+module.exports.validateContenu = validateContenu;
+
+async function handler(req, res) {
   const bad = checkWriteRequest(req);
   if (bad) return send(res, 405, { error: bad });
   const conf = configError();
@@ -98,7 +139,7 @@ module.exports = async (req, res) => {
       const data = { produits };
       files.push({ path: 'data/produits.json', content: serialize(data) });
       files.push({ path: 'produits.html', content: render(page.text, data).html });
-      summary.push(produits.length + ' produits');
+      summary.push(describeProduits(JSON.parse(current.text).produits, produits) || 'catalogue');
     }
 
     if (body.contenu) {
@@ -106,13 +147,16 @@ module.exports = async (req, res) => {
       if (current.sha !== versions.contenu) {
         return send(res, 409, { error: 'Les informations du site ont été modifiées ailleurs. Rechargez la page avant de publier.' });
       }
-      const contenu = validateContenu(body.contenu, JSON.parse(current.text));
+      const before = JSON.parse(current.text);
+      const contenu = validateContenu(body.contenu, before);
       files.push({ path: 'data/contenu.json', content: JSON.stringify(contenu, null, 2) + '\n' });
-      summary.push('infos du site');
+      summary.push(describeContenu(before, contenu) || 'infos du site');
     }
 
     if (!files.length) return send(res, 400, { error: 'Rien à publier' });
-    const sha = await commitFiles(files, 'admin: mise à jour (' + summary.join(', ') + ')');
+    let msg = summary.join(', ');
+    if (msg.length > 90) msg = msg.slice(0, 87) + '…';
+    const sha = await commitFiles(files, 'admin: ' + msg);
     send(res, 200, { ok: true, commit: sha });
   } catch (e) {
     const fromGithub = /^GitHub /.test(e.message);

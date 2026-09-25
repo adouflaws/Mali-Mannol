@@ -85,12 +85,14 @@ async function gh(path, opts = {}) {
   return opts.raw ? r.text() : r.json();
 }
 
-// Lit un fichier texte du dépôt et renvoie { text, sha } (sha du blob, pour détecter les conflits)
-async function readFile(path) {
-  const meta = await gh('/contents/' + path + '?ref=' + BRANCH);
+// Lit un fichier texte du dépôt (à la pointe de la branche, ou à un commit donné)
+// et renvoie { text, sha } (sha du blob, pour détecter les conflits)
+async function readFile(path, ref) {
+  const q = '/contents/' + path + '?ref=' + (ref || BRANCH);
+  const meta = await gh(q);
   const text = meta.content && meta.encoding === 'base64' && meta.size < 900000
     ? Buffer.from(meta.content, 'base64').toString('utf8')
-    : await gh('/contents/' + path + '?ref=' + BRANCH, { raw: true });
+    : await gh(q, { raw: true });
   return { text, sha: meta.sha };
 }
 
@@ -117,4 +119,4 @@ async function commitFiles(files, message) {
   }
 }
 
-module.exports = { send, configError, safeEqual, sessionCookie, clearCookie, isAuthenticated, checkWriteRequest, readFile, commitFiles };
+module.exports = { send, configError, safeEqual, sessionCookie, clearCookie, isAuthenticated, checkWriteRequest, gh, BRANCH, readFile, commitFiles };

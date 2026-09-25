@@ -94,22 +94,32 @@
   }
 
   // ---------- Panier ----------
-  function categoryOf(name) {
+  // Catégorie, formats vendus (choisis dans l'admin) et disponibilité, lus sur la carte du catalogue
+  function cardInfo(name) {
     var cards = document.querySelectorAll('.prod-card');
     for (var i = 0; i < cards.length; i++) {
       var h = cards[i].querySelector('h3');
       if (h && h.textContent.trim() === name) {
         var cat = cards[i].closest('.prod-cat');
-        return cat ? cat.dataset.cat : '';
+        return {
+          cat: cat ? cat.dataset.cat : '',
+          fm: cards[i].dataset.formats ? cards[i].dataset.formats.split('|') : [],
+          sc: cards[i].dataset.dispo === 'commande'
+        };
       }
     }
-    return '';
+    return { cat: '', fm: [], sc: false };
   }
+  function formatsOf(item) { return item.fm && item.fm.length ? item.fm : FORMATS[item.cat]; }
 
   function addToCart(name) {
     var c = load();
     var ex = c.find(function (i) { return i.n === name; });
-    if (ex) { ex.q++; } else { c.push({ n: name, q: 1, cat: categoryOf(name), f: FORMAT_DEFAULT }); }
+    if (ex) { ex.q++; } else {
+      var info = cardInfo(name);
+      // Un seul format vendu : il est présélectionné
+      c.push({ n: name, q: 1, cat: info.cat, fm: info.fm, sc: info.sc, f: info.fm.length === 1 ? info.fm[0] : FORMAT_DEFAULT });
+    }
     save(c); refresh();
     showToast(name);
     fab.classList.remove('bump'); void fab.offsetWidth; fab.classList.add('bump');
@@ -138,10 +148,10 @@
         + '<button type="button" data-sent="keep">Garder</button></div></div>'
       : '';
     body.innerHTML = sent + c.map(function (item, idx) {
-      var formats = FORMATS[item.cat];
+      var formats = formatsOf(item);
       return '<div class="cart-item">'
         + '<div class="cart-item-main">'
-        +   '<div class="cart-item-name">' + esc(item.n) + '</div>'
+        +   '<div class="cart-item-name">' + esc(item.n) + (item.sc ? ' <span class="cart-sc">sur commande</span>' : '') + '</div>'
         +   (formats
               ? '<label class="cart-item-format">Format souhaité<select data-fmt="' + idx + '">'
                 + options([FORMAT_DEFAULT].concat(formats), item.f || FORMAT_DEFAULT) + '</select></label>'
@@ -160,8 +170,8 @@
   function buildMessage() {
     var c = load();
     var lines = c.map(function (i) {
-      var fmt = FORMATS[i.cat] ? ' · format : ' + (i.f || FORMAT_DEFAULT) : '';
-      return '- ' + i.n + ' × ' + i.q + fmt;
+      var fmt = formatsOf(i) ? ' · format : ' + (i.f || FORMAT_DEFAULT) : '';
+      return '- ' + i.n + ' × ' + i.q + fmt + (i.sc ? ' (sur commande)' : '');
     });
     var info = [
       ['Nom', client.nom], ['Profil', client.profil],
