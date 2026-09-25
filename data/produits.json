@@ -55,6 +55,8 @@
     { "categorie": "carcare", "badge": "Car care", "nom": "M-40 Lubricant", "grade": "Lubrifiant multifonction anti-rouille", "normes": "400 ml", "motscles": "degrippant anti-rouille wd entretien", "image": "/images/produits/m40-silicone.webp" },
     { "categorie": "carcare", "badge": "Car care", "nom": "Glas Cleaner", "grade": "Nettoyant vitres, phares, rétroviseurs", "normes": "Prêt à l'emploi", "motscles": "nettoyant vitre entretien", "image": "/images/produits/glas-cleaner.webp" },
     { "categorie": "carcare", "badge": "Filtre", "nom": "Filtre à huile · à carburant", "grade": "Toutes marques sur demande", "normes": "OEM", "motscles": "filtre a air gasoil essence entretien", "image": "/images/produits/filtre-generique.webp" },
-    { "categorie": "carcare", "badge": "Accessoire", "nom": "Pompe à vidange manuelle", "grade": "Aspiration 9 L, hand pump", "normes": "Oil Extractor 9317", "motscles": "pompe aspiration vidange entretien", "image": "/images/produits/pompe-vidange.webp" }
+    { "categorie": "carcare", "badge": "Accessoire", "nom": "Pompe à vidange manuelle", "grade": "Aspiration 9 L, hand pump", "normes": "Oil Extractor 9317", "motscles": "pompe aspiration vidange entretien", "image": "/images/produits/pompe-vidange.webp" },
+
+    { "categorie": "fluides", "nom": "stone", "grade": "Pâte cuivre haute température", "normes": "1100 °C", "formats": ["1 L","400 g"], "promo": true, "promo_texte": "1 bidon achete une deusieme offert", "image": "/images/produits/stone-mug8cn2j.webp" }
   ]
 }
