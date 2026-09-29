@@ -42,6 +42,7 @@
     /* ---------- Logo ---------- */
     .logo {
       position: relative;
+      z-index: 1;
       display: inline-flex;
       flex-direction: column;
       align-items: stretch;
@@ -148,6 +149,62 @@
       50%      { text-shadow: 0 0 0.10em rgba(96, 165, 250, 0.6),  0 0 0.30em rgba(37, 99, 235, 0.42); }
     }
 
+    /* ---------- Particules d'arrière-plan ---------- */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      animation: particlesIn 1.8s ease-out 0.2s forwards;
+      /* Atténue les particules derrière le logo pour garder la lisibilité */
+      -webkit-mask-image: radial-gradient(ellipse 42% 30% at 50% 50%, rgba(0, 0, 0, 0.3), #000 100%);
+              mask-image: radial-gradient(ellipse 42% 30% at 50% 50%, rgba(0, 0, 0, 0.3), #000 100%);
+    }
+
+    /* Conteneur : montée verticale + fondu */
+    .particle {
+      position: absolute;
+      left: var(--x);
+      bottom: calc(var(--size) * -3);
+      opacity: 0;
+      will-change: transform, opacity;
+      animation: rise var(--dur) linear var(--delay) infinite;
+    }
+
+    /* Point lumineux : oscillation latérale + scintillement */
+    .particle i {
+      display: block;
+      width: calc(var(--size) * 3);
+      height: calc(var(--size) * 3);
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--color) 0 22%, transparent 68%);
+      animation:
+        sway var(--sway-dur) ease-in-out var(--delay) infinite alternate,
+        twinkle var(--twinkle-dur) ease-in-out infinite alternate;
+    }
+
+    @keyframes particlesIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes rise {
+      0%   { transform: translate3d(0, 0, 0);       opacity: 0; }
+      12%  { opacity: var(--alpha); }
+      85%  { opacity: var(--alpha); }
+      100% { transform: translate3d(0, -110vh, 0); opacity: 0; }
+    }
+
+    @keyframes sway {
+      from { transform: translateX(calc(var(--sway) * -1)); }
+      to   { transform: translateX(var(--sway)); }
+    }
+
+    @keyframes twinkle {
+      from { scale: 1; }
+      to   { scale: 0.6; }
+    }
 
     /* ---------- Bouton Rejouer ---------- */
     .replay {
@@ -166,6 +223,7 @@
       font: 500 13px/1 'Inter', system-ui, sans-serif;
       letter-spacing: 0.04em;
       cursor: pointer;
+      z-index: 2;
       opacity: 0;
       pointer-events: none;
       transition: color 0.2s, border-color 0.2s, background 0.2s, opacity 0.4s;
@@ -196,10 +254,20 @@
         stroke-dashoffset: 0;
       }
       .play .dev { text-shadow: 0 0 0.2em rgba(37, 99, 235, 0.35); }
+      .particles { animation: none; opacity: 1; }
+      .particle {
+        animation: none;
+        bottom: auto;
+        top: var(--y);
+        opacity: var(--alpha);
+      }
+      .particle i { animation: none; }
     }
   </style>
 </head>
 <body>
+
+  <div class="particles" id="particles" aria-hidden="true"></div>
 
   <h1 class="logo" id="logo" aria-label="Stone DEV">
     <span class="wordmark" aria-hidden="true">
@@ -220,14 +288,13 @@
       <line class="track" x1="0" y1="2" x2="100" y2="2"
             stroke-width="4" stroke-linecap="butt"/>
       <line class="bar" x1="0" y1="2" x2="100" y2="2"
-            stroke="url(#barGradient)" stroke-width="4" stroke-linecap="butt"
-           />
+            stroke="url(#barGradient)" stroke-width="4" stroke-linecap="butt"/>
     </svg>
   </h1>
 
   <button class="replay" id="replay" type="button" aria-label="Rejouer l'animation">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="butt" stroke-linejoin="round" aria-hidden="true">
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M3 12a9 9 0 1 0 3-6.7"/>
       <polyline points="3 3 3 9 9 9"/>
     </svg>
@@ -250,6 +317,37 @@
       }
 
       btn.addEventListener('click', play);
+
+      // Particules : JS ne fait que tirer des valeurs aléatoires,
+      // tout le mouvement est porté par les keyframes CSS.
+      var field = document.getElementById('particles');
+      var count = Math.round(Math.min(70, Math.max(28, window.innerWidth / 20)));
+      var frag = document.createDocumentFragment();
+
+      function rand(min, max) { return min + Math.random() * (max - min); }
+
+      for (var n = 0; n < count; n++) {
+        var depth = Math.random();                   // 0 = lointaine, 1 = proche
+        var size  = 1 + depth * depth * 3.5;         // px
+        var dur   = rand(18, 26) - depth * 8;        // les proches montent plus vite
+        var color = Math.random() < 0.4 ? '96, 165, 250' : '203, 213, 225';
+        var p = document.createElement('span');
+        p.className = 'particle';
+        p.style.cssText =
+          '--x:' + rand(0, 100).toFixed(2) + '%;' +
+          '--y:' + rand(0, 100).toFixed(2) + '%;' +
+          '--size:' + size.toFixed(2) + 'px;' +
+          '--dur:' + dur.toFixed(2) + 's;' +
+          '--delay:' + (-rand(0, dur)).toFixed(2) + 's;' +
+          '--alpha:' + (0.25 + depth * 0.6).toFixed(2) + ';' +
+          '--sway:' + rand(8, 28).toFixed(1) + 'px;' +
+          '--sway-dur:' + rand(3, 7).toFixed(2) + 's;' +
+          '--twinkle-dur:' + rand(1.5, 4).toFixed(2) + 's;' +
+          '--color: rgb(' + color + ');';
+        p.appendChild(document.createElement('i'));
+        frag.appendChild(p);
+      }
+      field.appendChild(frag);
 
       // Démarre une fois la police chargée pour éviter un saut de rendu
       if (document.fonts && document.fonts.ready) {
