@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stone DEV — Logo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A;
+      --text: #F8FAFC;
+      --muted: #64748B;
+      --accent: #2563EB;
+      --accent-light: #60A5FA;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background:
+        radial-gradient(ellipse 60% 45% at 50% 50%, rgba(37, 99, 235, 0.10), transparent 70%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- Logo ---------- */
+    .logo {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: stretch;
+      font-size: clamp(2.75rem, 13vw, 7.5rem);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: baseline;
+      gap: 0.22em;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      white-space: nowrap;
+    }
+
+    .stone { display: inline-flex; }
+
+    .stone span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(-0.55em);
+    }
+
+    .dev {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      transform: translateX(0.9em);
+    }
+
+    /* Ligne SVG qui se dessine */
+    .underline {
+      display: block;
+      width: 100%;
+      height: 0.07em;
+      border-radius: 999px;
+      margin-top: 0.14em;
+      overflow: visible;
+    }
+
+    .underline .track,
+    .underline .bar {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+    }
+
+    .underline .track { stroke: rgba(148, 163, 184, 0.15); }
+
+
+
+    /* ---------- Séquence (active via .play) ---------- */
+
+    /* 1. Ligne : 0 → 0.7s */
+    .play .underline .track { animation: draw 0.7s var(--ease-out) 0s forwards; }
+    .play .underline .bar   { animation: draw 0.75s var(--ease-out) 0.05s forwards; }
+
+    /* 2. Lettres de "Stone" : 0.35s → ~1.4s */
+    .play .stone span {
+      animation: bounceIn 0.62s var(--ease-bounce) forwards;
+      animation-delay: calc(0.35s + var(--i) * 0.09s);
+    }
+
+    /* 3. "DEV" slide depuis la droite : 1.15s → 1.85s
+       4. Glow/pulse une fois positionné : 1.85s → 2.75s, puis respiration subtile */
+    .play .dev {
+      animation:
+        slideIn 0.7s var(--ease-out) 1.15s forwards,
+        glowPulse 0.9s ease-out 1.85s forwards,
+        breathe 3.2s ease-in-out 2.75s infinite;
+    }
+
+
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+
+    @keyframes bounceIn {
+      0%   { opacity: 0; transform: translateY(-0.55em) scale(0.96); }
+      45%  { opacity: 1; }
+      65%  { transform: translateY(0.06em) scale(1.01); }
+      82%  { transform: translateY(-0.025em); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes slideIn {
+      0%   { opacity: 0; transform: translateX(0.9em); filter: blur(8px); }
+      60%  { filter: blur(0); }
+      100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+    }
+
+    @keyframes glowPulse {
+      0%   { text-shadow: 0 0 0 rgba(37, 99, 235, 0); }
+      40%  { text-shadow: 0 0 0.12em rgba(96, 165, 250, 0.95), 0 0 0.35em rgba(37, 99, 235, 0.7); }
+      100% { text-shadow: 0 0 0.08em rgba(96, 165, 250, 0.45), 0 0 0.22em rgba(37, 99, 235, 0.3); }
+    }
+
+    @keyframes breathe {
+      0%, 100% { text-shadow: 0 0 0.08em rgba(96, 165, 250, 0.45), 0 0 0.22em rgba(37, 99, 235, 0.3); }
+      50%      { text-shadow: 0 0 0.10em rgba(96, 165, 250, 0.6),  0 0 0.30em rgba(37, 99, 235, 0.42); }
+    }
+
+
+    /* ---------- Bouton Rejouer ---------- */
+    .replay {
+      position: fixed;
+      bottom: max(24px, env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--muted);
+      font: 500 13px/1 'Inter', system-ui, sans-serif;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, opacity 0.4s;
+    }
+
+    .replay.visible { opacity: 1; pointer-events: auto; }
+
+    .replay:hover,
+    .replay:focus-visible {
+      color: var(--text);
+      border-color: rgba(37, 99, 235, 0.6);
+      background: rgba(37, 99, 235, 0.12);
+      outline: none;
+    }
+
+    .replay svg { width: 14px; height: 14px; transition: transform 0.4s var(--ease-out); }
+    .replay:hover svg { transform: rotate(-180deg); }
+
+    /* ---------- Accessibilité ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      .play .stone span,
+      .play .dev,
+      .play .underline .track,
+      .play .underline .bar {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        stroke-dashoffset: 0;
+      }
+      .play .dev { text-shadow: 0 0 0.2em rgba(37, 99, 235, 0.35); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="logo" id="logo" aria-label="Stone DEV">
+    <span class="wordmark" aria-hidden="true">
+      <span class="stone">
+        <span style="--i:0">S</span><span style="--i:1">t</span><span style="--i:2">o</span><span style="--i:3">n</span><span style="--i:4">e</span>
+      </span>
+      <span class="dev">DEV</span>
+    </span>
+
+    <svg class="underline" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="barGradient" gradientUnits="userSpaceOnUse" x1="0" x2="100" y1="0" y2="0">
+          <stop offset="0%"   stop-color="#F8FAFC" stop-opacity="0.9"/>
+          <stop offset="55%"  stop-color="#60A5FA"/>
+          <stop offset="100%" stop-color="#2563EB"/>
+        </linearGradient>
+      </defs>
+      <line class="track" x1="0" y1="2" x2="100" y2="2"
+            stroke-width="4" stroke-linecap="butt"/>
+      <line class="bar" x1="0" y1="2" x2="100" y2="2"
+            stroke="url(#barGradient)" stroke-width="4" stroke-linecap="butt"
+           />
+    </svg>
+  </h1>
+
+  <button class="replay" id="replay" type="button" aria-label="Rejouer l'animation">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="butt" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 12a9 9 0 1 0 3-6.7"/>
+      <polyline points="3 3 3 9 9 9"/>
+    </svg>
+    Rejouer
+  </button>
+
+  <script>
+    (function () {
+      var logo = document.getElementById('logo');
+      var btn = document.getElementById('replay');
+      var timer;
+
+      function play() {
+        btn.classList.remove('visible');
+        logo.classList.remove('play');
+        void logo.offsetWidth;            // force un reflow pour relancer les keyframes
+        logo.classList.add('play');
+        clearTimeout(timer);
+        timer = setTimeout(function () { btn.classList.add('visible'); }, 2600);
+      }
+
+      btn.addEventListener('click', play);
+
+      // Démarre une fois la police chargée pour éviter un saut de rendu
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(play);
+      } else {
+        window.addEventListener('load', play);
+      }
+    })();
+  </script>
+</body>
+</html>
